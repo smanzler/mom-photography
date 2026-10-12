@@ -1,19 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
+import { SiteLayout } from "@/features/site/components/site-layout";
+import { buildPageHead } from "@/lib/seo";
+import { SITE } from "@/lib/site";
 
-export const Route = createFileRoute("/")({ component: App });
+export const Route = createFileRoute("/")({
+  component: Home,
+  head: () =>
+    buildPageHead({
+      title: `${SITE.name} — ${SITE.tagline}`,
+      description: SITE.description,
+      path: "/",
+    }),
+});
 
-function App() {
+function Home() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
+    <SiteLayout>
+      <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 px-6 py-32 text-center">
+        <h1 className="text-4xl font-semibold tracking-tight">{SITE.name}</h1>
+        <p className="text-muted-foreground">{SITE.tagline}</p>
       </div>
-    </div>
+    </SiteLayout>
   );
 }
