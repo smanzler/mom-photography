@@ -1,4 +1,5 @@
 import {
+  DeleteObjectCommand,
   HeadObjectCommand,
   PutObjectCommand,
   S3Client,
@@ -41,4 +42,8 @@ export const hasObject = async (key: string) => {
   } catch {
     return false;
   }
+};
+
+export const deleteObject = async (key: string) => {
+  await r2.send(new DeleteObjectCommand({ Bucket: env.R2_BUCKET, Key: key }));
 };
