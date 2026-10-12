@@ -56,9 +56,9 @@ tmux select-layout -t "=$SESSION:dev" even-horizontal
 tmux send-keys -t "$p_docker" "docker compose -f docker/docker-compose.yml logs -f" Enter
 tmux send-keys -t "$p_web"    "pnpm dev:web" Enter
 
-info "web       http://localhost:3000"
-info "mailpit   http://localhost:8025"
-info "s3 mock   http://localhost:9090"
+info "web       http://localhost:43000"
+info "mailpit   http://localhost:48025"
+info "s3 mock   http://localhost:49090"
 
 step "Ready"
 info "running detached in session '$SESSION'"

@@ -18,7 +18,7 @@ export const envSchema = z.object({
   R2_BUCKET: z.string(),
 
   SMTP_HOST: z.string().default("localhost"),
-  SMTP_PORT: z.coerce.number().default(1025),
+  SMTP_PORT: z.coerce.number().default(41025),
   SMTP_SECURE: z.stringbool().default(false),
   SMTP_USER: z.string().optional(),
   SMTP_PASSWORD: z.string().optional(),
