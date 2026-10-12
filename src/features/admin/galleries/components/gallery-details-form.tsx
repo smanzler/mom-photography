@@ -51,7 +51,7 @@ export function GalleryDetailsForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-xl flex-col gap-4">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
         <Label htmlFor="title">Title</Label>
         <Input
