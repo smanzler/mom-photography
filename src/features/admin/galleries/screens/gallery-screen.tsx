@@ -1,11 +1,24 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { PhotoImageSource } from "@/components/photo-image";
 import { GalleryDetailsForm } from "@/features/admin/galleries/components/gallery-details-form";
 import type { UpdateGalleryInput } from "@/features/admin/galleries/lib/gallery-schema";
+import type { GalleryPhoto } from "@/features/admin/galleries/photos/components/gallery-photo-tile";
+import { GalleryPhotosEditor } from "@/features/admin/galleries/photos/components/gallery-photos-editor";
 import { deleteGallery } from "@/features/admin/galleries/server/delete-gallery";
 
-export function GalleryScreen({ gallery }: { gallery: UpdateGalleryInput }) {
+export function GalleryScreen({
+  gallery,
+  coverPhotoId,
+  photos,
+  library,
+}: {
+  gallery: UpdateGalleryInput;
+  coverPhotoId: string | null;
+  photos: GalleryPhoto[];
+  library: (PhotoImageSource & { id: string })[];
+}) {
   const router = useRouter();
 
   const handleDelete = async () => {
@@ -42,7 +55,15 @@ export function GalleryScreen({ gallery }: { gallery: UpdateGalleryInput }) {
           Delete gallery
         </Button>
       </div>
-      <GalleryDetailsForm key={JSON.stringify(gallery)} gallery={gallery} />
+      <div className="grid gap-10 lg:grid-cols-[22rem_1fr]">
+        <GalleryDetailsForm key={JSON.stringify(gallery)} gallery={gallery} />
+        <GalleryPhotosEditor
+          galleryId={gallery.id}
+          coverPhotoId={coverPhotoId}
+          photos={photos}
+          library={library}
+        />
+      </div>
     </div>
   );
 }

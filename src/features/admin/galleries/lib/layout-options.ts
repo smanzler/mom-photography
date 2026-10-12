@@ -1,4 +1,4 @@
-import type { Layout } from "@/lib/gallery-layout";
+import type { Layout, Span } from "@/lib/gallery-layout";
 
 export const LAYOUT_OPTIONS: Record<
   Layout,
@@ -13,4 +13,10 @@ export const LAYOUT_OPTIONS: Record<
     label: "Single column",
     description: "One large photo after another.",
   },
+};
+
+export const SPAN_OPTIONS: Record<Span, { label: string }> = {
+  normal: { label: "Normal" },
+  wide: { label: "Wide" },
+  full: { label: "Full width" },
 };
