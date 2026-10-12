@@ -30,7 +30,7 @@ In app code, import UI components from `@/components/ui` — never `@base-ui/rea
 
 ## Verification
 
-Never start a dev server (`pnpm dev`, `vite dev`/`preview`, `docker compose up`, etc.) or use the `run` skill — the user runs these manually. For verification, only use the scripts already defined in package.json (`pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm check`).
+Never start a dev server (`pnpm dev`, `pnpm dev:web`, `./dev.sh`, `vite dev`/`preview`, `docker compose up`, etc.) or use the `run` skill — the user runs these manually. For verification, only use the scripts already defined in package.json (`pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm check`).
 
 ## Tests
 

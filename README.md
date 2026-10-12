@@ -12,7 +12,10 @@ TanStack Start + shadcn/Tailwind v4, deployed to Vercel.
    - `cp .env.example .env`
 3. `pnpm db:up` — Postgres on 5432, Mailpit on 1025 (inbox at http://localhost:8025)
 4. `pnpm db:migrate` — apply the migrations in `drizzle/`
-5. `pnpm dev` — the app runs on http://localhost:3000
+5. `pnpm dev` — starts the containers, then runs docker logs and the app (http://localhost:3000) side by side in a detached `mom-photography` tmux session. Attach with `tmux attach -t '=mom-photography:'`
+6. `pnpm down` — stops the app, the containers and the session (`pnpm down -- --purge` also wipes the database)
+
+`pnpm dev:web` runs only the app, without tmux.
 
 ## Admin
 
