@@ -23,3 +23,18 @@ After a schema change in `src/db`, run `pnpm db:generate` to write a migration, 
 ## Deploy
 
 Vercel builds the app with Nitro, which picks the Vercel preset on its own. Import the GitHub repository in Vercel and set the variables from `.env.example` (for `DATABASE_URL`, use the Neon **pooled** connection string; for `SMTP_*`, use a real sender such as Resend or Postmark); every push to `main` deploys to production and every PR gets a preview.
+
+## Photo storage (Cloudflare R2)
+
+The browser uploads photos straight to R2 through a presigned URL, so the R2 bucket needs a CORS rule (R2 > bucket > Settings > CORS policy):
+
+```json
+[
+  {
+    "AllowedOrigins": ["http://localhost:3000", "https://<your-domain>"],
+    "AllowedMethods": ["PUT"],
+    "AllowedHeaders": ["Content-Type"],
+    "MaxAgeSeconds": 3600
+  }
+]
+```

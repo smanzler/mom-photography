@@ -12,6 +12,11 @@ export const envSchema = z.object({
     .transform((value) => value.split(",").map((email) => email.trim()))
     .pipe(z.array(z.email().toLowerCase())),
 
+  R2_ACCOUNT_ID: z.string(),
+  R2_ACCESS_KEY_ID: z.string(),
+  R2_SECRET_ACCESS_KEY: z.string(),
+  R2_BUCKET: z.string(),
+
   SMTP_HOST: z.string().default("localhost"),
   SMTP_PORT: z.coerce.number().default(1025),
   SMTP_SECURE: z.stringbool().default(false),
