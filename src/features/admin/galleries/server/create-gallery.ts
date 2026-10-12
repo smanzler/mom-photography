@@ -16,7 +16,7 @@ import { db } from "@/lib/db";
 /** Creates an unpublished gallery at the end of the list. */
 export const createGallery = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .inputValidator(createGalleryInputSchema)
+  .validator(createGalleryInputSchema)
   .handler(async ({ data }) => {
     const base = toSlug(data.title) || "gallery";
     const [taken, ordered] = await Promise.all([

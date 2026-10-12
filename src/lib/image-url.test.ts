@@ -1,10 +1,10 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { buildImageSrcSet } from "@/lib/image-url";
 
-vi.stubEnv("VITE_IMAGES_URL", "https://images.test");
-
-afterEach(() => {
-  vi.stubEnv("VITE_IMAGE_TRANSFORMS", undefined);
+beforeEach(() => {
+  vi.stubEnv("VITE_IMAGES_URL", "https://images.test");
+  // Vitest loads .env, which turns transformations off for local dev.
+  vi.stubEnv("VITE_IMAGE_TRANSFORMS", "true");
 });
 
 const widthsOf = (srcSet: string) =>

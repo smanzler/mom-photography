@@ -14,10 +14,7 @@ export function SignInScreen() {
   const router = useRouter();
   const [email, setEmail] = useState<string>();
 
-  const handleSignedIn = async () => {
-    await router.invalidate();
-    await router.navigate({ to: "/admin" });
-  };
+  const handleSignedIn = () => router.navigate({ to: "/admin" });
 
   return (
     <main className="flex min-h-svh items-center justify-center p-6">

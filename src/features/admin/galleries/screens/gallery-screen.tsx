@@ -1,6 +1,6 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import type { PhotoImageSource } from "@/components/photo-image";
 import { GalleryDetailsForm } from "@/features/admin/galleries/components/gallery-details-form";
 import type { UpdateGalleryInput } from "@/features/admin/galleries/lib/gallery-schema";
@@ -36,32 +36,29 @@ export function GalleryScreen({
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center gap-4">
-        <Button
-          variant="ghost"
-          size="icon"
-          render={<Link to="/admin/galleries" />}
+        <Link
+          to="/admin/galleries"
+          className={buttonVariants({ variant: "ghost", size: "icon" })}
         >
           <ArrowLeft />
           <span className="sr-only">Back to galleries</span>
-        </Button>
+        </Link>
         <h1 className="text-2xl font-semibold tracking-tight">
           {gallery.title}
         </h1>
         {gallery.isPublished && (
-          <Button
-            variant="outline"
-            className="ml-auto"
-            render={
-              <Link
-                to="/$gallerySlug"
-                params={{ gallerySlug: gallery.slug }}
-                target="_blank"
-              />
-            }
+          <Link
+            to="/$gallerySlug"
+            params={{ gallerySlug: gallery.slug }}
+            target="_blank"
+            className={buttonVariants({
+              variant: "outline",
+              className: "ml-auto",
+            })}
           >
             <ExternalLink />
             View
-          </Button>
+          </Link>
         )}
         <Button
           variant="destructive"

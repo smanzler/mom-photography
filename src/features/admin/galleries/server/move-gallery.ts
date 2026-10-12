@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 
 export const moveGallery = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .inputValidator(moveInputSchema)
+  .validator(moveInputSchema)
   .handler(async ({ data }) => {
     const items = await db
       .select({ id: Galleries.id, position: Galleries.position })

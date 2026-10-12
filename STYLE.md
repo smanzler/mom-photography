@@ -73,7 +73,7 @@ galleries.filter(isPublished).map((gallery) => ...);
 
 **Branching on a union.** Put the behaviour in a dispatch table keyed by the union value — one implementation per member, and a `Record<Union, Impl>` registry that the call sites index. The registry is total, so a new member fails at type-check time. Use a ternary or a switch only for one local two-way branch.
 
-**Server functions.** Validate input with zod (`.inputValidator(schema)`). Admin server functions use the `adminMiddleware` so the session check runs on the RPC itself, not only on the route.
+**Server functions.** Validate input with zod (`.validator(schema)`). Admin server functions use the `adminMiddleware` so the session check runs on the RPC itself, not only on the route.
 
 ## Naming
 

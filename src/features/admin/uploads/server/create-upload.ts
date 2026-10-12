@@ -12,7 +12,7 @@ import {
  */
 export const createUpload = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .inputValidator(createUploadInputSchema)
+  .validator(createUploadInputSchema)
   .handler(async ({ data }) => {
     const key = `${UPLOAD_KEY_PREFIX}${crypto.randomUUID()}`;
     const uploadUrl = await createUploadUrl({

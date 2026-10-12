@@ -7,7 +7,7 @@ import { db } from "@/lib/db";
 
 export const updatePhoto = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .inputValidator(updatePhotoInputSchema)
+  .validator(updatePhotoInputSchema)
   .handler(async ({ data }) => {
     const { id, alt, caption } = data;
     await db.update(Photos).set({ alt, caption }).where(eq(Photos.id, id));

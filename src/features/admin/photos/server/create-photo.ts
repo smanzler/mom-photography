@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 /** Call after the PUT to the URL from `createUpload` is done. */
 export const createPhoto = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .inputValidator(createPhotoInputSchema)
+  .validator(createPhotoInputSchema)
   .handler(async ({ data }) => {
     if (!(await hasObject(data.key))) throw new Error("Upload not found");
 

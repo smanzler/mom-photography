@@ -9,7 +9,7 @@ import { db } from "@/lib/db";
 /** Also removes the photo from every gallery, and clears it as a gallery cover. */
 export const deletePhoto = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .inputValidator(photoIdInputSchema)
+  .validator(photoIdInputSchema)
   .handler(async ({ data }) => {
     const deleted = await db
       .delete(Photos)
