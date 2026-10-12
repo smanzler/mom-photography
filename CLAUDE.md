@@ -35,3 +35,7 @@ Never start a dev server (`pnpm dev`, `vite dev`/`preview`, `docker compose up`,
 ## Tests
 
 Add tests when it makes sense and they provide real value — not for the sake of coverage. Don't add tests for trivial code or scenarios that can't happen.
+
+## Database migrations
+
+Never run database migrations yourself. If a schema change requires a migration, generate it with `pnpm db:generate`, then tell the user and let them run `pnpm db:migrate` manually.
