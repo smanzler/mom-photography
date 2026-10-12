@@ -12,7 +12,7 @@ export const envSchema = z.object({
     .transform((value) => value.split(",").map((email) => email.trim()))
     .pipe(z.array(z.email().toLowerCase())),
 
-  R2_ACCOUNT_ID: z.string(),
+  R2_ENDPOINT: z.url(),
   R2_ACCESS_KEY_ID: z.string(),
   R2_SECRET_ACCESS_KEY: z.string(),
   R2_BUCKET: z.string(),

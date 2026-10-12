@@ -58,6 +58,7 @@ tmux send-keys -t "$p_web"    "pnpm dev:web" Enter
 
 info "web       http://localhost:3000"
 info "mailpit   http://localhost:8025"
+info "s3 mock   http://localhost:9090"
 
 step "Ready"
 info "running detached in session '$SESSION'"

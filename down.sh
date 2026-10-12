@@ -10,7 +10,7 @@ set -uo pipefail
 SESSION="${PHOTOGRAPHY_SESSION:-mom-photography}"
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
 COMPOSE="$ROOT/docker/docker-compose.yml"
-PORTS=(3000 5432 1025 8025)
+PORTS=(3000 5432 1025 8025 9090)
 PURGE=0
 
 step() { printf '\n\033[1m==> %s\033[0m\n' "$*"; }

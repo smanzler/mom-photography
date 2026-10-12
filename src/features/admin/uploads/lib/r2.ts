@@ -9,7 +9,11 @@ import { env } from "@/lib/env";
 
 export const r2 = new S3Client({
   region: "auto",
-  endpoint: `https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+  endpoint: env.R2_ENDPOINT,
+  // The local S3 mock takes the bucket from the path, not the host. R2 accepts both.
+  forcePathStyle: true,
+  // A presign has no body, so the SDK would sign the checksum of an empty body and the bucket would reject the real file.
+  requestChecksumCalculation: "WHEN_REQUIRED",
   credentials: {
     accessKeyId: env.R2_ACCESS_KEY_ID,
     secretAccessKey: env.R2_SECRET_ACCESS_KEY,
