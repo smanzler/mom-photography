@@ -27,6 +27,13 @@ export function AdminLayout({
           </Link>
           <nav className="flex items-center gap-4 text-sm">
             <Link
+              to="/admin/galleries"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Galleries
+            </Link>
+            <Link
               to="/admin/photos"
               className="text-muted-foreground hover:text-foreground transition-colors"
               activeProps={{ className: "text-foreground" }}

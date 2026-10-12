@@ -15,6 +15,8 @@ import { Route as AdminSignInRouteImport } from './routes/admin/sign-in'
 import { Route as AdminAuthedIndexRouteImport } from './routes/admin/_authed/index'
 import { Route as AdminAuthedPhotosRouteImport } from './routes/admin/_authed/photos'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as AdminAuthedGalleriesIndexRouteImport } from './routes/admin/_authed/galleries/index'
+import { Route as AdminAuthedGalleriesGalleryIdRouteImport } from './routes/admin/_authed/galleries/$galleryId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +48,18 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminAuthedGalleriesIndexRoute =
+  AdminAuthedGalleriesIndexRouteImport.update({
+    id: '/galleries/',
+    path: '/galleries/',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
+const AdminAuthedGalleriesGalleryIdRoute =
+  AdminAuthedGalleriesGalleryIdRouteImport.update({
+    id: '/galleries/$galleryId',
+    path: '/galleries/$galleryId',
+    getParentRoute: () => AdminAuthedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +68,8 @@ export interface FileRoutesByFullPath {
   '/admin/photos': typeof AdminAuthedPhotosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin/': typeof AdminAuthedIndexRoute
+  '/admin/galleries/$galleryId': typeof AdminAuthedGalleriesGalleryIdRoute
+  '/admin/galleries/': typeof AdminAuthedGalleriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,6 +77,8 @@ export interface FileRoutesByTo {
   '/admin/photos': typeof AdminAuthedPhotosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin': typeof AdminAuthedIndexRoute
+  '/admin/galleries/$galleryId': typeof AdminAuthedGalleriesGalleryIdRoute
+  '/admin/galleries': typeof AdminAuthedGalleriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,6 +88,8 @@ export interface FileRoutesById {
   '/admin/_authed/photos': typeof AdminAuthedPhotosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin/_authed/': typeof AdminAuthedIndexRoute
+  '/admin/_authed/galleries/$galleryId': typeof AdminAuthedGalleriesGalleryIdRoute
+  '/admin/_authed/galleries/': typeof AdminAuthedGalleriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -80,8 +100,17 @@ export interface FileRouteTypes {
     | '/admin/photos'
     | '/api/auth/$'
     | '/admin/'
+    | '/admin/galleries/$galleryId'
+    | '/admin/galleries/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin/sign-in' | '/admin/photos' | '/api/auth/$' | '/admin'
+  to:
+    | '/'
+    | '/admin/sign-in'
+    | '/admin/photos'
+    | '/api/auth/$'
+    | '/admin'
+    | '/admin/galleries/$galleryId'
+    | '/admin/galleries'
   id:
     | '__root__'
     | '/'
@@ -90,6 +119,8 @@ export interface FileRouteTypes {
     | '/admin/_authed/photos'
     | '/api/auth/$'
     | '/admin/_authed/'
+    | '/admin/_authed/galleries/$galleryId'
+    | '/admin/_authed/galleries/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -143,17 +174,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/_authed/galleries/': {
+      id: '/admin/_authed/galleries/'
+      path: '/galleries'
+      fullPath: '/admin/galleries/'
+      preLoaderRoute: typeof AdminAuthedGalleriesIndexRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
+    '/admin/_authed/galleries/$galleryId': {
+      id: '/admin/_authed/galleries/$galleryId'
+      path: '/galleries/$galleryId'
+      fullPath: '/admin/galleries/$galleryId'
+      preLoaderRoute: typeof AdminAuthedGalleriesGalleryIdRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
   }
 }
 
 interface AdminAuthedRouteRouteChildren {
   AdminAuthedPhotosRoute: typeof AdminAuthedPhotosRoute
   AdminAuthedIndexRoute: typeof AdminAuthedIndexRoute
+  AdminAuthedGalleriesGalleryIdRoute: typeof AdminAuthedGalleriesGalleryIdRoute
+  AdminAuthedGalleriesIndexRoute: typeof AdminAuthedGalleriesIndexRoute
 }
 
 const AdminAuthedRouteRouteChildren: AdminAuthedRouteRouteChildren = {
   AdminAuthedPhotosRoute: AdminAuthedPhotosRoute,
   AdminAuthedIndexRoute: AdminAuthedIndexRoute,
+  AdminAuthedGalleriesGalleryIdRoute: AdminAuthedGalleriesGalleryIdRoute,
+  AdminAuthedGalleriesIndexRoute: AdminAuthedGalleriesIndexRoute,
 }
 
 const AdminAuthedRouteRouteWithChildren =

@@ -9,14 +9,15 @@ import {
   timestamp,
   uuid,
 } from "drizzle-orm/pg-core";
+import { LAYOUTS, SPANS } from "@/lib/gallery-layout";
 
 // Fractional-index keys compare by byte; the default locale collation puts them in the wrong order.
 const position = customType<{ data: string }>({
   dataType: () => 'text COLLATE "C"',
 });
 
-export const layoutEnum = pgEnum("layout", ["grid", "masonry", "column"]);
-export const spanEnum = pgEnum("span", ["normal", "wide", "full"]);
+export const layoutEnum = pgEnum("layout", LAYOUTS);
+export const spanEnum = pgEnum("span", SPANS);
 
 export const Photos = pgTable("photos", {
   id: uuid("id").defaultRandom().primaryKey(),
