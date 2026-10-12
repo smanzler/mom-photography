@@ -20,3 +20,14 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+
+  s3:
+    image: adobe/s3mock:latest
+    ports:
+      - "9090:9090"
+    environment:
+      - COM_ADOBE_TESTING_S3MOCK_STORE_INITIALBUCKETS=photography
+      - COM_ADOBE_TESTING_S3MOCK_STORE_RETAINFILESONEXIT=true
+      - COM_ADOBE_TESTING_S3MOCK_STORE_ROOT=/data
+    volumes:
+      - ./.local/s3-data/:/data

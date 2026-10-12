@@ -10,7 +10,7 @@ TanStack Start + shadcn/Tailwind v4, deployed to Vercel.
 2. Copy the env examples and fill them in:
    - `cp docker/.env.example docker/.env`
    - `cp .env.example .env`
-3. `pnpm db:up` — Postgres on 5432, Mailpit on 1025 (inbox at http://localhost:8025)
+3. `pnpm db:up` — Postgres on 5432, Mailpit on 1025 (inbox at http://localhost:8025), and an S3 mock on 9090 that stands in for R2
 4. `pnpm db:migrate` — apply the migrations in `drizzle/`
 5. `pnpm dev` — starts the containers, then runs docker logs and the app (http://localhost:3000) side by side in a detached `mom-photography` tmux session. Attach with `tmux attach -t '=mom-photography:'`
 6. `pnpm down` — stops the app, the containers and the session (`pnpm down -- --purge` also wipes the database)
@@ -29,6 +29,8 @@ Vercel builds the app with Nitro, which picks the Vercel preset on its own. Impo
 
 ## Photo storage (Cloudflare R2)
 
+Locally, photos go to the S3 mock ([adobe/s3mock](https://github.com/adobe/S3Mock)) and are kept in `docker/.local/s3-data`. The mock allows CORS from any origin and does no resizing, so `.env.example` turns transformations off with `VITE_IMAGE_TRANSFORMS=false`. Production needs the real R2 values and `VITE_IMAGE_TRANSFORMS=true`.
+
 The browser uploads photos straight to R2 through a presigned URL, so the R2 bucket needs a CORS rule (R2 > bucket > Settings > CORS policy):
 
 ```json
@@ -46,4 +48,4 @@ Photos are shown through [Cloudflare Image Transformations](https://developers.c
 
 1. Connect a custom domain to the bucket (bucket > Settings > Custom Domains), for example `images.<your-domain>`. The domain must be in a Cloudflare zone.
 2. Turn on transformations for that zone (Images > Transformations).
-3. Set `VITE_IMAGES_URL` to `https://images.<your-domain>`.
+3. Set `VITE_IMAGES_URL` to `https://images.<your-domain>` and `VITE_IMAGE_TRANSFORMS` to `true`.
