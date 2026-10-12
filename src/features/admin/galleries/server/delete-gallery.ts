@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 /** Keeps the photos in the library. */
 export const deleteGallery = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .inputValidator(galleryIdInputSchema)
+  .validator(galleryIdInputSchema)
   .handler(async ({ data }) => {
     await db.delete(Galleries).where(eq(Galleries.id, data.id));
   });

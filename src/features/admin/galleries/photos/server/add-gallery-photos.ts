@@ -9,7 +9,7 @@ import { db } from "@/lib/db";
 /** Adds the photos at the end, in the given order. Skips photos that are already in the gallery. */
 export const addGalleryPhotos = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .inputValidator(addGalleryPhotosInputSchema)
+  .validator(addGalleryPhotosInputSchema)
   .handler(async ({ data }) => {
     const { galleryId, photoIds } = data;
     const last = await db

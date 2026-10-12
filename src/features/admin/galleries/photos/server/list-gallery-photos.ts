@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 /** Each item has the photo's fields, with `id` set to the photo id. */
 export const listGalleryPhotos = createServerFn()
   .middleware([adminMiddleware])
-  .inputValidator(galleryIdInputSchema)
+  .validator(galleryIdInputSchema)
   .handler(async ({ data }) => {
     const rows = await db
       .select()

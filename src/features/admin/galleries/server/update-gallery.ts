@@ -7,7 +7,7 @@ import { db } from "@/lib/db";
 
 export const updateGallery = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .inputValidator(updateGalleryInputSchema)
+  .validator(updateGalleryInputSchema)
   .handler(async ({ data }) => {
     const { id, isPublished, ...fields } = data;
 

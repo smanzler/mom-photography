@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { SiteLayout } from "@/features/site/components/site-layout";
 
 export function NotFoundScreen() {
@@ -12,9 +12,9 @@ export function NotFoundScreen() {
         <p className="text-muted-foreground">
           The page you asked for does not exist, or it has moved.
         </p>
-        <Button render={<Link to="/" />} size="lg">
+        <Link to="/" className={buttonVariants({ size: "lg" })}>
           Back to home
-        </Button>
+        </Link>
       </div>
     </SiteLayout>
   );

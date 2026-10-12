@@ -15,7 +15,7 @@ import {
 import type { SortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical } from "lucide-react";
-import { useState } from "react";
+import { useId, useState } from "react";
 import type { ReactNode } from "react";
 import { findMovedOrder } from "@/features/admin/lib/find-moved-order";
 import { cn } from "@/lib/utils";
@@ -37,6 +37,8 @@ export function SortableList<T extends { id: string }>({
   onMove: (move: { id: string; afterId: string | null }) => Promise<void>;
   renderItem: (item: T, handle: ReactNode) => ReactNode;
 }) {
+  // dnd-kit makes its own ids from a counter, which differ between the server and the client render.
+  const dndId = useId();
   const [moved, setMoved] = useState<{ source: T[]; order: T[] }>();
   const order = moved?.source === items ? moved.order : items;
 
@@ -63,6 +65,7 @@ export function SortableList<T extends { id: string }>({
 
   return (
     <DndContext
+      id={dndId}
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}

@@ -4,7 +4,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 
 export const getPublishedGallery = createServerFn()
-  .inputValidator(z.object({ slug: z.string() }))
+  .validator(z.object({ slug: z.string() }))
   .handler(async ({ data }) => {
     const gallery = await db.query.Galleries.findFirst({
       where: { slug: data.slug, publishedAt: { isNotNull: true } },

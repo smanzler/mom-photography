@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 
 export const getGallery = createServerFn()
   .middleware([adminMiddleware])
-  .inputValidator(galleryIdInputSchema)
+  .validator(galleryIdInputSchema)
   .handler(async ({ data }) => {
     const gallery = await db.query.Galleries.findFirst({
       where: { id: data.id },

@@ -8,7 +8,7 @@ import { db } from "@/lib/db";
 /** Keeps the photo in the library. Clears the cover when the photo was the cover. */
 export const removeGalleryPhoto = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .inputValidator(galleryPhotoInputSchema)
+  .validator(galleryPhotoInputSchema)
   .handler(async ({ data }) => {
     const { galleryId, photoId } = data;
     await db.transaction(async (tx) => {

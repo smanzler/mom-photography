@@ -9,7 +9,7 @@ import { db } from "@/lib/db";
 /** `id` and `afterId` are photo ids. */
 export const moveGalleryPhoto = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
-  .inputValidator(moveGalleryPhotoInputSchema)
+  .validator(moveGalleryPhotoInputSchema)
   .handler(async ({ data }) => {
     const { galleryId, id, afterId } = data;
     const items = await db
