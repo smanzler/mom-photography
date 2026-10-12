@@ -1,21 +1,10 @@
-# TanStack Start + shadcn/ui
+# mom-photography
 
-This is a template for a new TanStack Start project with React, TypeScript, and shadcn/ui.
+Photography portfolio with an admin area for uploading, arranging and publishing photos.
 
-## Adding components
+TanStack Start + shadcn/Tailwind v4, deployed to Vercel.
 
-To add components to your app, run the following command:
+## Local setup
 
-```bash
-npx shadcn@latest add button
-```
-
-This will place the ui components in the `components` directory.
-
-## Using components
-
-To use the components in your app, import them as follows:
-
-```tsx
-import { Button } from "@/components/ui/button";
-```
+1. `pnpm install`
+2. `pnpm dev` — the app runs on http://localhost:3000
