@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000",
+    "dev": "./dev.sh",
+    "dev:web": "vite dev --port 3000",
+    "down": "./down.sh",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run --passWithNoTests",
