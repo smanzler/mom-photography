@@ -10,7 +10,7 @@ set -uo pipefail
 SESSION="${PHOTOGRAPHY_SESSION:-mom-photography}"
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
 COMPOSE="$ROOT/docker/docker-compose.yml"
-PORTS=(3000 5432 1025 8025 9090)
+PORTS=(43000 45432 41025 48025 49090)
 PURGE=0
 
 step() { printf '\n\033[1m==> %s\033[0m\n' "$*"; }
@@ -52,7 +52,7 @@ if tmux has-session -t "=$SESSION:" 2>/dev/null; then
   # Wait for vite to release its port before taking the database away, so it
   # exits cleanly instead of on a dropped connection.
   for _ in $(seq 1 10); do
-    port_busy 3000 || break
+    port_busy 43000 || break
     sleep 1
   done
 else

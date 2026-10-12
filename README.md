@@ -6,13 +6,15 @@ TanStack Start + shadcn/Tailwind v4, deployed to Vercel.
 
 ## Local setup
 
+Local services use the 4xxxx port range so they do not collide with other projects.
+
 1. `pnpm install`
 2. Copy the env examples and fill them in:
    - `cp docker/.env.example docker/.env`
    - `cp .env.example .env`
-3. `pnpm db:up` — Postgres on 5432, Mailpit on 1025 (inbox at http://localhost:8025), and an S3 mock on 9090 that stands in for R2
+3. `pnpm db:up` — Postgres on 45432, Mailpit on 41025 (inbox at http://localhost:48025), and an S3 mock on 49090 that stands in for R2
 4. `pnpm db:migrate` — apply the migrations in `drizzle/`
-5. `pnpm dev` — starts the containers, then runs docker logs and the app (http://localhost:3000) side by side in a detached `mom-photography` tmux session. Attach with `tmux attach -t '=mom-photography:'`
+5. `pnpm dev` — starts the containers, then runs docker logs and the app (http://localhost:43000) side by side in a detached `mom-photography` tmux session. Attach with `tmux attach -t '=mom-photography:'`
 6. `pnpm down` — stops the app, the containers and the session (`pnpm down -- --purge` also wipes the database)
 
 `pnpm dev:web` runs only the app, without tmux.
@@ -36,7 +38,7 @@ The browser uploads photos straight to R2 through a presigned URL, so the R2 buc
 ```json
 [
   {
-    "AllowedOrigins": ["http://localhost:3000", "https://<your-domain>"],
+    "AllowedOrigins": ["http://localhost:43000", "https://<your-domain>"],
     "AllowedMethods": ["PUT"],
     "AllowedHeaders": ["Content-Type"],
     "MaxAgeSeconds": 3600
