@@ -1,3 +1,7 @@
 allowBuilds:
   esbuild: true
   unrs-resolver: false
+
+# better-auth 1.7.0-rc.1 imports migration constants that kysely 0.29 removed.
+overrides:
+  kysely: ~0.28.0
