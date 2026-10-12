@@ -1,0 +1,11 @@
+# Ignore artifacts:
+build
+coverage
+.output
+
+# deps
+pnpm-lock.yaml
+
+# generated
+src/routeTree.gen.ts
+drizzle
