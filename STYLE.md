@@ -16,7 +16,7 @@
 - Spread (`[...a, ...b]`, `{...a, ...b}`) over clone + mutate
 - Early returns over `let data; try { data = ... }` patterns
 
-**Functions, not classes.** React components are `function` declarations (`function Button(...)`, `export default function Home()`); everything else is a `const` arrow function. Classes come from SDKs only — construct them once as a module-level singleton under `src/lib` (see `r2.ts`) and export the configured instance rather than constructing at call sites.
+**Functions, not classes.** React components are `function` declarations (`function Button(...)`, `export default function Home()`); everything else is a `const` arrow function. Classes come from SDKs only — construct them once as a module-level singleton in a `lib/` directory and export the configured instance rather than constructing at call sites.
 
 | Use case          | Solution                           |
 | ----------------- | ---------------------------------- |
@@ -58,7 +58,7 @@ Use (in order of preference):
 
 Group by feature. `src/routes` holds routes only — a route file wires up the loader, `head` and guards, then renders a screen from `src/features/<feature>/screens`. Each feature keeps its `components/`, `hooks/`, `lib/` and `server/` beside its screens; nest a sub-feature under its parent (`features/admin/galleries`). A file moves to `src/components`, `src/hooks` or `src/lib` only when two or more features use it.
 
-**Server code.** Server functions live in the feature's `server/` directory. Tables and relations live in `src/db`. Configured SDK clients (database, auth, R2, mailer) live in `src/lib` as module-level singletons.
+**Server code.** Server functions live in the feature's `server/` directory. Tables and relations live in `src/db`. Configured SDK clients are module-level singletons in a `lib/` directory — the feature's own when one feature uses the client, `src/lib` when several do.
 
 **File names are kebab-case**, matching the exported symbol (`photo-grid.tsx` → `PhotoGrid`, `use-upload-photos.ts` → `useUploadPhotos`).
 
