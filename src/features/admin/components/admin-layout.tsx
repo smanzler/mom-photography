@@ -25,6 +25,15 @@ export function AdminLayout({
           <Link to="/admin" className="font-semibold tracking-tight">
             {SITE.name} admin
           </Link>
+          <nav className="flex items-center gap-4 text-sm">
+            <Link
+              to="/admin/photos"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Photos
+            </Link>
+          </nav>
           <div className="text-muted-foreground ml-auto flex items-center gap-4 text-sm">
             <span>{email}</span>
             <Button variant="outline" size="sm" onClick={handleSignOut}>

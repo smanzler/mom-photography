@@ -38,3 +38,9 @@ The browser uploads photos straight to R2 through a presigned URL, so the R2 buc
   }
 ]
 ```
+
+Photos are shown through [Cloudflare Image Transformations](https://developers.cloudflare.com/images/transform-images/), which make each size on demand from the one original:
+
+1. Connect a custom domain to the bucket (bucket > Settings > Custom Domains), for example `images.<your-domain>`. The domain must be in a Cloudflare zone.
+2. Turn on transformations for that zone (Images > Transformations).
+3. Set `VITE_IMAGES_URL` to `https://images.<your-domain>`.

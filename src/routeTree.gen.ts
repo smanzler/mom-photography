@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminAuthedRouteRouteImport } from './routes/admin/_authed/route'
 import { Route as AdminSignInRouteImport } from './routes/admin/sign-in'
 import { Route as AdminAuthedIndexRouteImport } from './routes/admin/_authed/index'
+import { Route as AdminAuthedPhotosRouteImport } from './routes/admin/_authed/photos'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +36,11 @@ const AdminAuthedIndexRoute = AdminAuthedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
+const AdminAuthedPhotosRoute = AdminAuthedPhotosRouteImport.update({
+  id: '/photos',
+  path: '/photos',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -45,12 +51,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminAuthedRouteRouteWithChildren
   '/admin/sign-in': typeof AdminSignInRoute
+  '/admin/photos': typeof AdminAuthedPhotosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin/': typeof AdminAuthedIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin/sign-in': typeof AdminSignInRoute
+  '/admin/photos': typeof AdminAuthedPhotosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin': typeof AdminAuthedIndexRoute
 }
@@ -59,19 +67,27 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin/_authed': typeof AdminAuthedRouteRouteWithChildren
   '/admin/sign-in': typeof AdminSignInRoute
+  '/admin/_authed/photos': typeof AdminAuthedPhotosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin/_authed/': typeof AdminAuthedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/admin/sign-in' | '/api/auth/$' | '/admin/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/admin/sign-in'
+    | '/admin/photos'
+    | '/api/auth/$'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin/sign-in' | '/api/auth/$' | '/admin'
+  to: '/' | '/admin/sign-in' | '/admin/photos' | '/api/auth/$' | '/admin'
   id:
     | '__root__'
     | '/'
     | '/admin/_authed'
     | '/admin/sign-in'
+    | '/admin/_authed/photos'
     | '/api/auth/$'
     | '/admin/_authed/'
   fileRoutesById: FileRoutesById
@@ -113,6 +129,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAuthedIndexRouteImport
       parentRoute: typeof AdminAuthedRouteRoute
     }
+    '/admin/_authed/photos': {
+      id: '/admin/_authed/photos'
+      path: '/photos'
+      fullPath: '/admin/photos'
+      preLoaderRoute: typeof AdminAuthedPhotosRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -124,10 +147,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminAuthedRouteRouteChildren {
+  AdminAuthedPhotosRoute: typeof AdminAuthedPhotosRoute
   AdminAuthedIndexRoute: typeof AdminAuthedIndexRoute
 }
 
 const AdminAuthedRouteRouteChildren: AdminAuthedRouteRouteChildren = {
+  AdminAuthedPhotosRoute: AdminAuthedPhotosRoute,
   AdminAuthedIndexRoute: AdminAuthedIndexRoute,
 }
 

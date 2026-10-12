@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { AdminHomeScreen } from "@/features/admin/screens/admin-home-screen";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin/_authed/")({
-  head: () => ({ meta: [{ title: "Admin" }] }),
-  component: AdminHomeScreen,
+  beforeLoad: () => {
+    throw redirect({ to: "/admin/photos" });
+  },
 });
