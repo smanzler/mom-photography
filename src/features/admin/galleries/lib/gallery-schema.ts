@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { layoutSchema } from "@/lib/gallery-layout";
 
+/** Top-level routes that a gallery URL would hide behind. */
+export const RESERVED_SLUGS = ["admin", "api"];
+
 export const createGalleryInputSchema = z.object({
   title: z.string().trim().min(1).max(200),
 });

@@ -6,7 +6,10 @@ import {
   findFreeSlug,
   toSlug,
 } from "@/features/admin/galleries/lib/build-slug";
-import { createGalleryInputSchema } from "@/features/admin/galleries/lib/gallery-schema";
+import {
+  RESERVED_SLUGS,
+  createGalleryInputSchema,
+} from "@/features/admin/galleries/lib/gallery-schema";
 import { buildPositionAtEnd } from "@/features/admin/lib/build-position";
 import { db } from "@/lib/db";
 
@@ -31,10 +34,10 @@ export const createGallery = createServerFn({ method: "POST" })
       .insert(Galleries)
       .values({
         title: data.title,
-        slug: findFreeSlug(
-          base,
-          taken.map((row) => row.slug),
-        ),
+        slug: findFreeSlug(base, [
+          ...RESERVED_SLUGS,
+          ...taken.map((row) => row.slug),
+        ]),
         position: buildPositionAtEnd(ordered),
       })
       .returning();

@@ -1,5 +1,5 @@
 import { Link, useRouter } from "@tanstack/react-router";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { PhotoImageSource } from "@/components/photo-image";
 import { GalleryDetailsForm } from "@/features/admin/galleries/components/gallery-details-form";
@@ -47,9 +47,25 @@ export function GalleryScreen({
         <h1 className="text-2xl font-semibold tracking-tight">
           {gallery.title}
         </h1>
+        {gallery.isPublished && (
+          <Button
+            variant="outline"
+            className="ml-auto"
+            render={
+              <Link
+                to="/$gallerySlug"
+                params={{ gallerySlug: gallery.slug }}
+                target="_blank"
+              />
+            }
+          >
+            <ExternalLink />
+            View
+          </Button>
+        )}
         <Button
           variant="destructive"
-          className="ml-auto"
+          className={gallery.isPublished ? undefined : "ml-auto"}
           onClick={handleDelete}
         >
           Delete gallery
