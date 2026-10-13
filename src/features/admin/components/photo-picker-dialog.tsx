@@ -13,16 +13,45 @@ import { cn } from "@/lib/utils";
 
 type PickablePhoto = PhotoImageSource & { id: string };
 
+type PickMode = "many" | "one";
+
+const PICK_MODES: Record<
+  PickMode,
+  {
+    title: string;
+    showsOrder: boolean;
+    add: (selected: string[], id: string) => string[];
+    buttonLabel: (count: number) => string;
+  }
+> = {
+  many: {
+    title: "Add photos",
+    showsOrder: true,
+    add: (selected, id) => [...selected, id],
+    buttonLabel: (count) =>
+      `Add ${count || ""} ${count === 1 ? "photo" : "photos"}`,
+  },
+  one: {
+    title: "Choose a photo",
+    showsOrder: false,
+    add: (_selected, id) => [id],
+    buttonLabel: () => "Use photo",
+  },
+};
+
 /** Calls `onPick` with the photo ids in the order the user selected them. */
 export function PhotoPickerDialog({
   photos,
+  mode = "many",
   onPick,
   onClose,
 }: {
   photos: PickablePhoto[];
+  mode?: PickMode;
   onPick: (photoIds: string[]) => Promise<void>;
   onClose: () => void;
 }) {
+  const pickMode = PICK_MODES[mode];
   const [selected, setSelected] = useState<string[]>([]);
   const [isPending, setIsPending] = useState(false);
 
@@ -30,7 +59,7 @@ export function PhotoPickerDialog({
     setSelected((current) =>
       current.includes(id)
         ? current.filter((other) => other !== id)
-        : [...current, id],
+        : pickMode.add(current, id),
     );
 
   const handleAdd = async () => {
@@ -43,7 +72,7 @@ export function PhotoPickerDialog({
     <Dialog open onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-3xl">
         <DialogHeader>
-          <DialogTitle>Add photos</DialogTitle>
+          <DialogTitle>{pickMode.title}</DialogTitle>
         </DialogHeader>
         {photos.length === 0 ? (
           <p className="text-muted-foreground text-sm">
@@ -69,7 +98,7 @@ export function PhotoPickerDialog({
                       sizes="10rem"
                       className="h-full object-cover"
                     />
-                    {order !== -1 && (
+                    {pickMode.showsOrder && order !== -1 && (
                       <span className="bg-primary text-primary-foreground absolute top-1 right-1 flex size-6 items-center justify-center rounded-full text-xs">
                         {order + 1}
                       </span>
@@ -82,8 +111,7 @@ export function PhotoPickerDialog({
         )}
         <DialogFooter>
           <Button disabled={!selected.length || isPending} onClick={handleAdd}>
-            Add {selected.length || ""}{" "}
-            {selected.length === 1 ? "photo" : "photos"}
+            {pickMode.buttonLabel(selected.length)}
           </Button>
         </DialogFooter>
       </DialogContent>
