@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { HomeScreen } from "@/features/home/screens/home-screen";
 import { listPublishedGalleries } from "@/features/gallery/server/list-published-galleries";
+import { getAboutSection } from "@/lib/get-about-section";
 import { listHomepagePhotos } from "@/lib/list-homepage-photos";
 import { listPricingPackages } from "@/lib/list-pricing-packages";
 import { buildPageHead } from "@/lib/seo";
@@ -8,12 +9,13 @@ import { SITE } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
-    const [galleries, heroPhotos, pricingPackages] = await Promise.all([
+    const [galleries, heroPhotos, pricingPackages, about] = await Promise.all([
       listPublishedGalleries(),
       listHomepagePhotos(),
       listPricingPackages(),
+      getAboutSection(),
     ]);
-    return { galleries, heroPhotos, pricingPackages };
+    return { galleries, heroPhotos, pricingPackages, about };
   },
   head: () =>
     buildPageHead({
