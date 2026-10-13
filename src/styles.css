@@ -128,3 +128,16 @@
     @apply font-sans;
   }
 }
+
+@theme {
+  --animate-hero-progress: hero-progress 6s linear forwards;
+
+  @keyframes hero-progress {
+    from {
+      scale: 0 1;
+    }
+    to {
+      scale: 1 1;
+    }
+  }
+}
