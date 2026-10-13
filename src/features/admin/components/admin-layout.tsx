@@ -34,6 +34,13 @@ export function AdminLayout({
               Homepage
             </Link>
             <Link
+              to="/admin/pricing"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Pricing
+            </Link>
+            <Link
               to="/admin/galleries"
               className="text-muted-foreground hover:text-foreground transition-colors"
               activeProps={{ className: "text-foreground" }}
