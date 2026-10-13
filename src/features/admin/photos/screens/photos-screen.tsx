@@ -1,13 +1,19 @@
+import { Upload } from "lucide-react";
 import { useState } from "react";
 import { PhotoImage } from "@/components/photo-image";
 import { PhotoEditDialog } from "@/features/admin/photos/components/photo-edit-dialog";
 import type { EditablePhoto } from "@/features/admin/photos/components/photo-edit-dialog";
 import { UploadButton } from "@/features/admin/photos/components/upload-button";
+import { useFileDrop } from "@/features/admin/photos/hooks/use-file-drop";
 import { useUploadPhotos } from "@/features/admin/photos/hooks/use-upload-photos";
 
 export function PhotosScreen({ photos }: { photos: EditablePhoto[] }) {
   const { uploadPhotos, progress, failures } = useUploadPhotos();
   const [editing, setEditing] = useState<EditablePhoto>();
+  const { isDragging } = useFileDrop({
+    enabled: !progress,
+    onFiles: uploadPhotos,
+  });
 
   return (
     <div className="flex flex-col gap-6">
@@ -35,7 +41,7 @@ export function PhotosScreen({ photos }: { photos: EditablePhoto[] }) {
 
       {photos.length === 0 ? (
         <p className="text-muted-foreground">
-          No photos yet. Upload some to start.
+          No photos yet. Upload some, or drop them anywhere on this page.
         </p>
       ) : (
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
@@ -55,6 +61,22 @@ export function PhotosScreen({ photos }: { photos: EditablePhoto[] }) {
             </li>
           ))}
         </ul>
+      )}
+
+      {isDragging && (
+        <div
+          aria-hidden
+          className="bg-background/90 pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-6"
+        >
+          <div className="border-foreground/40 flex h-full w-full flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed">
+            <Upload className="size-10" />
+            <p className="text-lg font-medium">
+              {progress
+                ? "Wait for the upload to finish"
+                : "Drop photos to upload"}
+            </p>
+          </div>
+        </div>
       )}
 
       {editing && (
