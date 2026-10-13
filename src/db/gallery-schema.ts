@@ -1,5 +1,4 @@
 import {
-  customType,
   index,
   integer,
   pgEnum,
@@ -9,12 +8,8 @@ import {
   timestamp,
   uuid,
 } from "drizzle-orm/pg-core";
+import { position } from "@/db/position";
 import { LAYOUTS, SPANS } from "@/lib/gallery-layout";
-
-// Fractional-index keys compare by byte; the default locale collation puts them in the wrong order.
-const position = customType<{ data: string }>({
-  dataType: () => 'text COLLATE "C"',
-});
 
 export const layoutEnum = pgEnum("layout", LAYOUTS);
 export const spanEnum = pgEnum("span", SPANS);
