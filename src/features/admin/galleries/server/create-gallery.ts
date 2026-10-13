@@ -1,15 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
-import { like } from "drizzle-orm";
 import { Galleries } from "@/db/schema";
 import { adminMiddleware } from "@/features/admin/auth/server/admin-middleware";
-import {
-  findFreeSlug,
-  toSlug,
-} from "@/features/admin/galleries/lib/build-slug";
-import {
-  RESERVED_SLUGS,
-  createGalleryInputSchema,
-} from "@/features/admin/galleries/lib/gallery-schema";
+import { createGalleryInputSchema } from "@/features/admin/galleries/lib/gallery-schema";
+import { findGallerySlug } from "@/features/admin/galleries/server/find-gallery-slug";
 import { buildPositionAtEnd } from "@/features/admin/lib/build-position";
 import { db } from "@/lib/db";
 
@@ -18,12 +11,8 @@ export const createGallery = createServerFn({ method: "POST" })
   .middleware([adminMiddleware])
   .validator(createGalleryInputSchema)
   .handler(async ({ data }) => {
-    const base = toSlug(data.title) || "gallery";
-    const [taken, ordered] = await Promise.all([
-      db
-        .select({ slug: Galleries.slug })
-        .from(Galleries)
-        .where(like(Galleries.slug, `${base}%`)),
+    const [slug, ordered] = await Promise.all([
+      findGallerySlug({ title: data.title }),
       db
         .select({ id: Galleries.id, position: Galleries.position })
         .from(Galleries)
@@ -34,10 +23,7 @@ export const createGallery = createServerFn({ method: "POST" })
       .insert(Galleries)
       .values({
         title: data.title,
-        slug: findFreeSlug(base, [
-          ...RESERVED_SLUGS,
-          ...taken.map((row) => row.slug),
-        ]),
+        slug,
         position: buildPositionAtEnd(ordered),
       })
       .returning();

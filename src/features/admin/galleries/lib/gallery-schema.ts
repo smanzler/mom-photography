@@ -12,12 +12,6 @@ export type CreateGalleryInput = z.infer<typeof createGalleryInputSchema>;
 export const updateGalleryInputSchema = z.object({
   id: z.uuid(),
   title: z.string().trim().min(1).max(200),
-  slug: z
-    .string()
-    .regex(
-      /^[a-z0-9]+(-[a-z0-9]+)*$/,
-      "Use lowercase letters, digits and dashes",
-    ),
   description: z.string().max(2000).nullable(),
   layout: layoutSchema,
   isPublished: z.boolean(),
