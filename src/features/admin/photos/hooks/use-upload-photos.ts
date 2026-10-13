@@ -8,7 +8,9 @@ import { createUpload } from "@/features/admin/uploads/server/create-upload";
 export type UploadFailure = { name: string; message: string };
 
 const uploadPhoto = async (file: File) => {
-  const contentType = imageContentTypeSchema.parse(file.type);
+  const parsed = imageContentTypeSchema.safeParse(file.type);
+  if (!parsed.success) throw new Error("Not a JPEG, PNG, WebP or AVIF image");
+  const contentType = parsed.data;
   const image = await readImage(file);
   const { key, uploadUrl } = await createUpload({ data: { contentType } });
 
