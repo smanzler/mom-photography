@@ -7,6 +7,7 @@
     "dev:web": "vite dev --port 43000 --strictPort",
     "down": "./down.sh",
     "build": "vite build",
+    "vercel-build": "./scripts/vercel-build.sh",
     "preview": "vite preview",
     "test": "vitest run --passWithNoTests",
     "lint": "eslint",
