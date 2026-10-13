@@ -18,6 +18,7 @@ import { Route as AdminAuthedAboutRouteImport } from './routes/admin/_authed/abo
 import { Route as AdminAuthedHomepageRouteImport } from './routes/admin/_authed/homepage'
 import { Route as AdminAuthedPhotosRouteImport } from './routes/admin/_authed/photos'
 import { Route as AdminAuthedPricingRouteImport } from './routes/admin/_authed/pricing'
+import { Route as AdminAuthedSettingsRouteImport } from './routes/admin/_authed/settings'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AdminAuthedGalleriesIndexRouteImport } from './routes/admin/_authed/galleries/index'
 import { Route as AdminAuthedGalleriesGalleryIdRouteImport } from './routes/admin/_authed/galleries/$galleryId'
@@ -67,6 +68,11 @@ const AdminAuthedPricingRoute = AdminAuthedPricingRouteImport.update({
   path: '/pricing',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
+const AdminAuthedSettingsRoute = AdminAuthedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/admin/homepage': typeof AdminAuthedHomepageRoute
   '/admin/photos': typeof AdminAuthedPhotosRoute
   '/admin/pricing': typeof AdminAuthedPricingRoute
+  '/admin/settings': typeof AdminAuthedSettingsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin/': typeof AdminAuthedIndexRoute
   '/admin/galleries/$galleryId': typeof AdminAuthedGalleriesGalleryIdRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/admin/homepage': typeof AdminAuthedHomepageRoute
   '/admin/photos': typeof AdminAuthedPhotosRoute
   '/admin/pricing': typeof AdminAuthedPricingRoute
+  '/admin/settings': typeof AdminAuthedSettingsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin': typeof AdminAuthedIndexRoute
   '/admin/galleries/$galleryId': typeof AdminAuthedGalleriesGalleryIdRoute
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/admin/_authed/homepage': typeof AdminAuthedHomepageRoute
   '/admin/_authed/photos': typeof AdminAuthedPhotosRoute
   '/admin/_authed/pricing': typeof AdminAuthedPricingRoute
+  '/admin/_authed/settings': typeof AdminAuthedSettingsRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin/_authed/': typeof AdminAuthedIndexRoute
   '/admin/_authed/galleries/$galleryId': typeof AdminAuthedGalleriesGalleryIdRoute
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
     | '/admin/homepage'
     | '/admin/photos'
     | '/admin/pricing'
+    | '/admin/settings'
     | '/api/auth/$'
     | '/admin/'
     | '/admin/galleries/$galleryId'
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/admin/homepage'
     | '/admin/photos'
     | '/admin/pricing'
+    | '/admin/settings'
     | '/api/auth/$'
     | '/admin'
     | '/admin/galleries/$galleryId'
@@ -165,6 +176,7 @@ export interface FileRouteTypes {
     | '/admin/_authed/homepage'
     | '/admin/_authed/photos'
     | '/admin/_authed/pricing'
+    | '/admin/_authed/settings'
     | '/api/auth/$'
     | '/admin/_authed/'
     | '/admin/_authed/galleries/$galleryId'
@@ -244,6 +256,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAuthedPricingRouteImport
       parentRoute: typeof AdminAuthedRouteRoute
     }
+    '/admin/_authed/settings': {
+      id: '/admin/_authed/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminAuthedSettingsRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -273,6 +292,7 @@ interface AdminAuthedRouteRouteChildren {
   AdminAuthedHomepageRoute: typeof AdminAuthedHomepageRoute
   AdminAuthedPhotosRoute: typeof AdminAuthedPhotosRoute
   AdminAuthedPricingRoute: typeof AdminAuthedPricingRoute
+  AdminAuthedSettingsRoute: typeof AdminAuthedSettingsRoute
   AdminAuthedIndexRoute: typeof AdminAuthedIndexRoute
   AdminAuthedGalleriesGalleryIdRoute: typeof AdminAuthedGalleriesGalleryIdRoute
   AdminAuthedGalleriesIndexRoute: typeof AdminAuthedGalleriesIndexRoute
@@ -283,6 +303,7 @@ const AdminAuthedRouteRouteChildren: AdminAuthedRouteRouteChildren = {
   AdminAuthedHomepageRoute: AdminAuthedHomepageRoute,
   AdminAuthedPhotosRoute: AdminAuthedPhotosRoute,
   AdminAuthedPricingRoute: AdminAuthedPricingRoute,
+  AdminAuthedSettingsRoute: AdminAuthedSettingsRoute,
   AdminAuthedIndexRoute: AdminAuthedIndexRoute,
   AdminAuthedGalleriesGalleryIdRoute: AdminAuthedGalleriesGalleryIdRoute,
   AdminAuthedGalleriesIndexRoute: AdminAuthedGalleriesIndexRoute,

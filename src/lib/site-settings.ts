@@ -1,0 +1,32 @@
+import { createServerFn, createServerOnlyFn } from "@tanstack/react-start";
+import { z } from "zod";
+import { db } from "@/lib/db";
+
+export const siteSettingsSchema = z.object({
+  name: z.string().trim().min(1).max(100),
+  tagline: z.string().trim().max(200),
+  description: z.string().trim().max(500),
+  email: z.email().nullable(),
+});
+export type SiteSettings = z.infer<typeof siteSettingsSchema>;
+
+const DEFAULT_SITE_SETTINGS: SiteSettings = {
+  name: "Photography",
+  tagline: "",
+  description: "",
+  email: null,
+};
+
+// The client imports this file for `getSiteSettings`; the wrapper keeps the database code out of the client bundle.
+/** Returns the defaults until the settings are saved in admin. */
+export const findSiteSettings = createServerOnlyFn(
+  async (): Promise<SiteSettings> => {
+    const settings = await db.query.SiteSettings.findFirst();
+    if (!settings) return DEFAULT_SITE_SETTINGS;
+
+    const { name, tagline, description, email } = settings;
+    return { name, tagline, description, email };
+  },
+);
+
+export const getSiteSettings = createServerFn().handler(findSiteSettings);
