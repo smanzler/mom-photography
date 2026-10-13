@@ -14,6 +14,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { OTHER_SESSION } from "@/features/home/lib/inquiry-schema";
 import { sendInquiry } from "@/features/home/server/send-inquiry";
+import { cn } from "@/lib/utils";
 
 type Status = "idle" | "sending" | "sent" | "failed";
 
@@ -74,12 +75,24 @@ export function ContactSection({
           </p>
         </div>
 
-        {status === "sent" ? (
-          <p role="status" className="text-lg">
-            Thank you! Your message is on its way, and I'll reply by email.
-          </p>
-        ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {/* Both sit in one grid cell, so the card keeps the height of the form after a send. */}
+        <div className="grid">
+          {status === "sent" && (
+            <p
+              role="status"
+              className="self-center text-center text-lg [grid-area:1/1]"
+            >
+              Thank you! Your message is on its way, and I'll reply by email.
+            </p>
+          )}
+          <form
+            onSubmit={handleSubmit}
+            inert={status === "sent"}
+            className={cn(
+              "flex flex-col gap-4 [grid-area:1/1]",
+              status === "sent" && "invisible",
+            )}
+          >
             <div className="flex flex-col gap-2">
               <Label htmlFor="contact-name">Name</Label>
               <Input
@@ -156,7 +169,7 @@ export function ContactSection({
               {status === "sending" ? "Sending…" : "Send inquiry"}
             </Button>
           </form>
-        )}
+        </div>
       </div>
     </section>
   );
