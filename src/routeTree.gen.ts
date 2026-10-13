@@ -14,6 +14,7 @@ import { Route as GallerySlugRouteImport } from './routes/$gallerySlug'
 import { Route as AdminAuthedRouteRouteImport } from './routes/admin/_authed/route'
 import { Route as AdminSignInRouteImport } from './routes/admin/sign-in'
 import { Route as AdminAuthedIndexRouteImport } from './routes/admin/_authed/index'
+import { Route as AdminAuthedHomepageRouteImport } from './routes/admin/_authed/homepage'
 import { Route as AdminAuthedPhotosRouteImport } from './routes/admin/_authed/photos'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as AdminAuthedGalleriesIndexRouteImport } from './routes/admin/_authed/galleries/index'
@@ -44,6 +45,11 @@ const AdminAuthedIndexRoute = AdminAuthedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
+const AdminAuthedHomepageRoute = AdminAuthedHomepageRouteImport.update({
+  id: '/homepage',
+  path: '/homepage',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
 const AdminAuthedPhotosRoute = AdminAuthedPhotosRouteImport.update({
   id: '/photos',
   path: '/photos',
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/$gallerySlug': typeof GallerySlugRoute
   '/admin': typeof AdminAuthedRouteRouteWithChildren
   '/admin/sign-in': typeof AdminSignInRoute
+  '/admin/homepage': typeof AdminAuthedHomepageRoute
   '/admin/photos': typeof AdminAuthedPhotosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin/': typeof AdminAuthedIndexRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$gallerySlug': typeof GallerySlugRoute
   '/admin/sign-in': typeof AdminSignInRoute
+  '/admin/homepage': typeof AdminAuthedHomepageRoute
   '/admin/photos': typeof AdminAuthedPhotosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin': typeof AdminAuthedIndexRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   '/$gallerySlug': typeof GallerySlugRoute
   '/admin/_authed': typeof AdminAuthedRouteRouteWithChildren
   '/admin/sign-in': typeof AdminSignInRoute
+  '/admin/_authed/homepage': typeof AdminAuthedHomepageRoute
   '/admin/_authed/photos': typeof AdminAuthedPhotosRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/admin/_authed/': typeof AdminAuthedIndexRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
     | '/$gallerySlug'
     | '/admin'
     | '/admin/sign-in'
+    | '/admin/homepage'
     | '/admin/photos'
     | '/api/auth/$'
     | '/admin/'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$gallerySlug'
     | '/admin/sign-in'
+    | '/admin/homepage'
     | '/admin/photos'
     | '/api/auth/$'
     | '/admin'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/$gallerySlug'
     | '/admin/_authed'
     | '/admin/sign-in'
+    | '/admin/_authed/homepage'
     | '/admin/_authed/photos'
     | '/api/auth/$'
     | '/admin/_authed/'
@@ -180,6 +192,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAuthedIndexRouteImport
       parentRoute: typeof AdminAuthedRouteRoute
     }
+    '/admin/_authed/homepage': {
+      id: '/admin/_authed/homepage'
+      path: '/homepage'
+      fullPath: '/admin/homepage'
+      preLoaderRoute: typeof AdminAuthedHomepageRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
     '/admin/_authed/photos': {
       id: '/admin/_authed/photos'
       path: '/photos'
@@ -212,6 +231,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminAuthedRouteRouteChildren {
+  AdminAuthedHomepageRoute: typeof AdminAuthedHomepageRoute
   AdminAuthedPhotosRoute: typeof AdminAuthedPhotosRoute
   AdminAuthedIndexRoute: typeof AdminAuthedIndexRoute
   AdminAuthedGalleriesGalleryIdRoute: typeof AdminAuthedGalleriesGalleryIdRoute
@@ -219,6 +239,7 @@ interface AdminAuthedRouteRouteChildren {
 }
 
 const AdminAuthedRouteRouteChildren: AdminAuthedRouteRouteChildren = {
+  AdminAuthedHomepageRoute: AdminAuthedHomepageRoute,
   AdminAuthedPhotosRoute: AdminAuthedPhotosRoute,
   AdminAuthedIndexRoute: AdminAuthedIndexRoute,
   AdminAuthedGalleriesGalleryIdRoute: AdminAuthedGalleriesGalleryIdRoute,

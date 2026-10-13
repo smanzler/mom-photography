@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { SortableList } from "@/features/admin/components/sortable-list";
 import { GalleryPhotoTile } from "@/features/admin/galleries/photos/components/gallery-photo-tile";
 import type { GalleryPhoto } from "@/features/admin/galleries/photos/components/gallery-photo-tile";
-import { PhotoPickerDialog } from "@/features/admin/galleries/photos/components/photo-picker-dialog";
+import { PhotoPickerDialog } from "@/features/admin/components/photo-picker-dialog";
 import { addGalleryPhotos } from "@/features/admin/galleries/photos/server/add-gallery-photos";
 import { moveGalleryPhoto } from "@/features/admin/galleries/photos/server/move-gallery-photo";
 import { removeGalleryPhoto } from "@/features/admin/galleries/photos/server/remove-gallery-photo";

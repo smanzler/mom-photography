@@ -47,7 +47,7 @@ export function PhotoPickerDialog({
         </DialogHeader>
         {photos.length === 0 ? (
           <p className="text-muted-foreground text-sm">
-            Every photo in the library is already in this gallery.
+            Every photo in the library is already added.
           </p>
         ) : (
           <ul className="grid max-h-[60vh] grid-cols-3 gap-2 overflow-y-auto sm:grid-cols-5">
