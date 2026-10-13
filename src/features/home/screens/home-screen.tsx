@@ -28,7 +28,7 @@ export function HomeScreen({
       {hasHero && <HeroSlideshow photos={heroPhotos} />}
       <div
         id="galleries"
-        className="mx-auto flex max-w-6xl scroll-mt-16 flex-col gap-12 px-6 py-16"
+        className="mx-auto flex min-h-svh max-w-6xl scroll-mt-16 flex-col justify-center gap-12 px-6 py-16"
       >
         <div className="flex flex-col gap-2">
           <h1 className="text-4xl font-semibold tracking-tight">{SITE.name}</h1>

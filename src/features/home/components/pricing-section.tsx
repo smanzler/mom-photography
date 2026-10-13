@@ -31,8 +31,11 @@ const TONES: Record<
 
 export function PricingSection({ packages }: { packages: PricingPackage[] }) {
   return (
-    <section id="pricing" className="scroll-mt-16 px-6 py-24 sm:py-32">
-      <div className="mx-auto flex max-w-6xl flex-col gap-14">
+    <section
+      id="pricing"
+      className="flex min-h-svh scroll-mt-16 flex-col justify-center px-6 py-24 sm:py-32"
+    >
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-14">
         <div className="flex flex-col items-center gap-3 text-center">
           <p className="text-muted-foreground text-xs tracking-[0.24em] uppercase">
             Pricing
