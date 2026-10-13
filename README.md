@@ -29,6 +29,8 @@ After a schema change in `src/db`, run `pnpm db:generate` to write a migration, 
 
 Vercel builds the app with Nitro, which picks the Vercel preset on its own. Import the GitHub repository in Vercel and set the variables from `.env.example` (for `DATABASE_URL`, use the Neon **pooled** connection string; for `SMTP_*`, use a real sender such as Resend or Postmark); every push to `main` deploys to production and every PR gets a preview.
 
+A production build runs `pnpm db:migrate` before `vite build` (see `scripts/vercel-build.sh`), so a deploy goes live only after its migrations, and a failed migration stops the deploy. Set `DATABASE_URL_UNPOOLED` to the Neon direct connection string for this step; without it, the migrations use `DATABASE_URL`. Preview builds do not migrate.
+
 ## Photo storage (Cloudflare R2)
 
 Locally, photos go to the S3 mock ([adobe/s3mock](https://github.com/adobe/S3Mock)) and are kept in `docker/.local/s3-data`. The mock allows CORS from any origin and does no resizing, so `.env.example` turns transformations off with `VITE_IMAGE_TRANSFORMS=false`. Production needs the real R2 values and `VITE_IMAGE_TRANSFORMS=true`.
