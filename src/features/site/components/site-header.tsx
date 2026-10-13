@@ -1,16 +1,38 @@
 import { Link } from "@tanstack/react-router";
 import { SITE } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
-export function SiteHeader() {
+export function SiteHeader({ overlay }: { overlay: boolean }) {
   return (
-    <header className="border-border bg-background/70 fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-6xl items-center px-6">
+    <header
+      className={cn(
+        "inset-x-0 top-0 z-50",
+        overlay
+          ? "absolute text-white"
+          : "border-border bg-background/70 fixed border-b backdrop-blur-md",
+      )}
+    >
+      <div
+        className={cn(
+          "mx-auto flex items-center justify-between gap-6 px-6",
+          overlay ? "h-24 sm:px-12" : "h-16 max-w-6xl",
+        )}
+      >
         <Link
           to="/"
           className="font-heading text-lg font-semibold tracking-tight"
         >
           {SITE.name}
         </Link>
+        <nav
+          aria-label="Main"
+          className="flex items-center gap-6 text-xs tracking-[0.2em] uppercase"
+        >
+          <Link to="/" hash="galleries">
+            Galleries
+          </Link>
+          <a href={`mailto:${SITE.email}`}>Contact</a>
+        </nav>
       </div>
     </header>
   );

@@ -1,10 +1,12 @@
 import type { PhotoImageSource } from "@/components/photo-image";
 import { GalleryCard } from "@/features/gallery/components/gallery-card";
+import { HeroSlideshow } from "@/features/home/components/hero-slideshow";
 import { SiteLayout } from "@/features/site/components/site-layout";
 import { SITE } from "@/lib/site";
 
 export function HomeScreen({
   galleries,
+  heroPhotos,
 }: {
   galleries: {
     id: string;
@@ -12,10 +14,17 @@ export function HomeScreen({
     title: string;
     coverPhoto: PhotoImageSource | null;
   }[];
+  heroPhotos: (PhotoImageSource & { id: string })[];
 }) {
+  const hasHero = heroPhotos.length > 0;
+
   return (
-    <SiteLayout>
-      <div className="mx-auto flex max-w-6xl flex-col gap-12 px-6 py-16">
+    <SiteLayout overlayHeader={hasHero}>
+      {hasHero && <HeroSlideshow photos={heroPhotos} />}
+      <div
+        id="galleries"
+        className="mx-auto flex max-w-6xl scroll-mt-16 flex-col gap-12 px-6 py-16"
+      >
         <div className="flex flex-col gap-2">
           <h1 className="text-4xl font-semibold tracking-tight">{SITE.name}</h1>
           <p className="text-muted-foreground">{SITE.tagline}</p>
