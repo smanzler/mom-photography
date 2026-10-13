@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { PhotoImage } from "@/components/photo-image";
-import type { PhotoImageSource } from "@/components/photo-image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,17 +12,12 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { OTHER_SESSION } from "@/features/home/lib/inquiry-schema";
 import { sendInquiry } from "@/features/home/server/send-inquiry";
+import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "sending" | "sent" | "failed";
 
-export function ContactSection({
-  sessions,
-  photo,
-}: {
-  sessions: string[];
-  photo: PhotoImageSource | undefined;
-}) {
+export function ContactSection({ sessions }: { sessions: string[] }) {
   const sessionItems = [...sessions, OTHER_SESSION].map((session) => ({
     value: session,
     label: session,
@@ -55,27 +48,25 @@ export function ContactSection({
   return (
     <section
       id="contact"
-      className="bg-foreground relative scroll-mt-16 px-6 py-24 sm:py-32"
+      className="scroll-mt-16 bg-[#F6F3EE] px-6 py-24 sm:py-32"
     >
-      {photo && (
-        <PhotoImage
-          photo={photo}
-          sizes="100vw"
-          aria-hidden
-          className="absolute inset-0 h-full object-cover"
-        />
-      )}
-      <div className="bg-background relative mx-auto flex max-w-xl flex-col gap-7 p-7 sm:p-14">
-        <div className="flex flex-col gap-2">
-          <h2 className="text-4xl leading-none sm:text-5xl">
-            Check my availability
+      <div className="mx-auto grid max-w-6xl gap-16 lg:grid-cols-2">
+        <div className="flex flex-col gap-5">
+          <p className="text-muted-foreground text-xs tracking-[0.24em] uppercase">
+            Contact
+          </p>
+          <h2 className="text-5xl leading-none sm:text-6xl">
+            Let's plan your <em>session.</em>
           </h2>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground max-w-md leading-relaxed">
             Tell me a little about what you have in mind.
           </p>
+          <a href={`mailto:${SITE.email}`} className="mt-3 self-start">
+            {SITE.email}
+          </a>
         </div>
 
-        {/* Both sit in one grid cell, so the card keeps the height of the form after a send. */}
+        {/* Both sit in one grid cell, so the section keeps the height of the form after a send. */}
         <div className="grid">
           {status === "sent" && (
             <p
@@ -93,26 +84,28 @@ export function ContactSection({
               status === "sent" && "invisible",
             )}
           >
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="contact-name">Name</Label>
-              <Input
-                id="contact-name"
-                name="name"
-                required
-                autoComplete="name"
-                className="h-11"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="contact-email">Email</Label>
-              <Input
-                id="contact-email"
-                name="email"
-                type="email"
-                required
-                autoComplete="email"
-                className="h-11"
-              />
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="contact-name">Name</Label>
+                <Input
+                  id="contact-name"
+                  name="name"
+                  required
+                  autoComplete="name"
+                  className="bg-background h-11"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="contact-email">Email</Label>
+                <Input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  className="bg-background h-11"
+                />
+              </div>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="flex flex-col gap-2">
@@ -122,7 +115,10 @@ export function ContactSection({
                   value={session}
                   onValueChange={(value) => value && setSession(value)}
                 >
-                  <SelectTrigger id="contact-session" className="h-11 w-full">
+                  <SelectTrigger
+                    id="contact-session"
+                    className="bg-background h-11 w-full"
+                  >
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -140,7 +136,7 @@ export function ContactSection({
                   id="contact-date"
                   name="date"
                   type="date"
-                  className="h-11"
+                  className="bg-background h-11"
                 />
               </div>
             </div>
@@ -164,9 +160,9 @@ export function ContactSection({
               type="submit"
               size="lg"
               disabled={status === "sending"}
-              className="h-12 text-xs tracking-[0.2em] uppercase"
+              className="h-12 self-start px-8 text-xs tracking-[0.2em] uppercase"
             >
-              {status === "sending" ? "Sending…" : "Send inquiry"}
+              {status === "sending" ? "Sending…" : "Send message"}
             </Button>
           </form>
         </div>

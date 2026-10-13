@@ -49,7 +49,6 @@ export function HomeScreen({
       )}
       <ContactSection
         sessions={pricingPackages.map((pricingPackage) => pricingPackage.name)}
-        photo={heroPhotos.at(-1)}
       />
     </SiteLayout>
   );
