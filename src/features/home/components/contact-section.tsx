@@ -49,7 +49,7 @@ export function ContactSection({ sessions }: { sessions: string[] }) {
   return (
     <section
       id="contact"
-      className="flex min-h-svh scroll-mt-16 flex-col justify-center bg-[#F6F3EE] px-6 py-24 sm:py-32"
+      className="bg-cream flex min-h-svh scroll-mt-16 flex-col justify-center px-6 py-24 sm:py-32"
     >
       <div className="mx-auto grid w-full max-w-6xl gap-16 lg:grid-cols-2">
         <div className="flex flex-col gap-5">
