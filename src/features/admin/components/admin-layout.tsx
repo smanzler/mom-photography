@@ -61,6 +61,13 @@ export function AdminLayout({
             >
               Photos
             </Link>
+            <Link
+              to="/admin/settings"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Settings
+            </Link>
           </nav>
           <div className="text-muted-foreground ml-auto flex items-center gap-4 text-sm">
             <span>{email}</span>
