@@ -1,4 +1,9 @@
-import { SITE } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
+import type { SiteSettings } from "@/lib/site-settings";
+
+/** The title of the homepage, and of any page without its own. */
+export const buildSiteTitle = ({ name, tagline }: SiteSettings) =>
+  tagline ? `${name} — ${tagline}` : name;
 
 /** Page-level `head` for a route. Pass the full `<title>`, not just the page name. */
 export const buildPageHead = ({
@@ -10,7 +15,7 @@ export const buildPageHead = ({
   description: string;
   path: string;
 }) => {
-  const url = `${SITE.url}${path}`;
+  const url = `${SITE_URL}${path}`;
 
   return {
     links: [{ rel: "canonical", href: url }],

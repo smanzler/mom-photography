@@ -6,7 +6,7 @@ import { ContactSection } from "@/features/home/components/contact-section";
 import { HeroSlideshow } from "@/features/home/components/hero-slideshow";
 import { PricingSection } from "@/features/home/components/pricing-section";
 import { SiteLayout } from "@/features/site/components/site-layout";
-import { SITE } from "@/lib/site";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 export function HomeScreen({
   galleries,
@@ -24,6 +24,7 @@ export function HomeScreen({
   pricingPackages: ComponentProps<typeof PricingSection>["packages"];
   about: ComponentProps<typeof AboutSection>["about"] | null;
 }) {
+  const site = useSiteSettings();
   const hasHero = heroPhotos.length > 0;
 
   return (
@@ -34,8 +35,10 @@ export function HomeScreen({
         className="mx-auto flex min-h-svh max-w-6xl scroll-mt-16 flex-col justify-center gap-12 px-6 py-16"
       >
         <div className="flex flex-col gap-2">
-          <h1 className="text-4xl font-semibold tracking-tight">{SITE.name}</h1>
-          <p className="text-muted-foreground">{SITE.tagline}</p>
+          <h1 className="text-4xl font-semibold tracking-tight">{site.name}</h1>
+          {site.tagline && (
+            <p className="text-muted-foreground">{site.tagline}</p>
+          )}
         </div>
         {galleries.length === 0 ? (
           <p className="text-muted-foreground">New work is on its way.</p>

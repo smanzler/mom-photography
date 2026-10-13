@@ -1,10 +1,17 @@
-import { SITE } from "@/lib/site";
+const escapeHtml = (value: string) =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
 
 export const renderOtpEmail = ({
+  siteName,
   otp,
   heading,
   expiresInMinutes,
 }: {
+  siteName: string;
   otp: string;
   heading: string;
   expiresInMinutes: number;
@@ -18,7 +25,7 @@ export const renderOtpEmail = ({
           <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;width:100%;background-color:#ffffff;border-radius:12px;overflow:hidden;">
             <tr>
               <td style="padding:32px 32px 8px 32px;text-align:center;">
-                <span style="font-size:15px;font-weight:600;letter-spacing:0.02em;color:#09090b;">${SITE.name}</span>
+                <span style="font-size:15px;font-weight:600;letter-spacing:0.02em;color:#09090b;">${escapeHtml(siteName)}</span>
               </td>
             </tr>
             <tr>

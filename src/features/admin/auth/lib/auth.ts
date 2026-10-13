@@ -8,6 +8,7 @@ import { mailer } from "@/lib/mailer";
 import { renderOtpEmail } from "@/features/admin/auth/lib/render-otp-email";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";
+import { findSiteSettings } from "@/lib/site-settings";
 
 const OTP_EXPIRES_IN_MINUTES = 5;
 
@@ -30,7 +31,9 @@ export const auth = betterAuth({
         if (!isAdminEmail(email)) return;
 
         const subject = "Your sign in code";
+        const site = await findSiteSettings();
         const { html, text } = renderOtpEmail({
+          siteName: site.name,
           otp,
           heading: subject,
           expiresInMinutes: OTP_EXPIRES_IN_MINUTES,
