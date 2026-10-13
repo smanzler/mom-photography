@@ -1,6 +1,7 @@
 import type { ComponentProps } from "react";
 import type { PhotoImageSource } from "@/components/photo-image";
 import { GalleryCard } from "@/features/gallery/components/gallery-card";
+import { AboutSection } from "@/features/home/components/about-section";
 import { ContactSection } from "@/features/home/components/contact-section";
 import { HeroSlideshow } from "@/features/home/components/hero-slideshow";
 import { PricingSection } from "@/features/home/components/pricing-section";
@@ -11,6 +12,7 @@ export function HomeScreen({
   galleries,
   heroPhotos,
   pricingPackages,
+  about,
 }: {
   galleries: {
     id: string;
@@ -20,6 +22,7 @@ export function HomeScreen({
   }[];
   heroPhotos: (PhotoImageSource & { id: string })[];
   pricingPackages: ComponentProps<typeof PricingSection>["packages"];
+  about: ComponentProps<typeof AboutSection>["about"] | null;
 }) {
   const hasHero = heroPhotos.length > 0;
 
@@ -44,6 +47,7 @@ export function HomeScreen({
           </div>
         )}
       </div>
+      {about && <AboutSection about={about} />}
       {pricingPackages.length > 0 && (
         <PricingSection packages={pricingPackages} />
       )}

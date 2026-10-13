@@ -31,6 +31,9 @@ export function SiteHeader({ overlay }: { overlay: boolean }) {
           <Link to="/" hash="galleries">
             Galleries
           </Link>
+          <Link to="/" hash="about">
+            About
+          </Link>
           <Link to="/" hash="pricing">
             Pricing
           </Link>
