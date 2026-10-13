@@ -1,6 +1,7 @@
 import type { ComponentProps } from "react";
 import type { PhotoImageSource } from "@/components/photo-image";
 import { GalleryCard } from "@/features/gallery/components/gallery-card";
+import { ContactSection } from "@/features/home/components/contact-section";
 import { HeroSlideshow } from "@/features/home/components/hero-slideshow";
 import { PricingSection } from "@/features/home/components/pricing-section";
 import { SiteLayout } from "@/features/site/components/site-layout";
@@ -46,6 +47,10 @@ export function HomeScreen({
       {pricingPackages.length > 0 && (
         <PricingSection packages={pricingPackages} />
       )}
+      <ContactSection
+        sessions={pricingPackages.map((pricingPackage) => pricingPackage.name)}
+        photo={heroPhotos.at(-1)}
+      />
     </SiteLayout>
   );
 }

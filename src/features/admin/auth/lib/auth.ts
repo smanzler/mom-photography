@@ -4,7 +4,7 @@ import { emailOTP } from "better-auth/plugins";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
 import * as schema from "@/db/auth-schema";
 import { isAdminEmail } from "@/features/admin/auth/lib/is-admin-email";
-import { mailer } from "@/features/admin/auth/lib/mailer";
+import { mailer } from "@/lib/mailer";
 import { renderOtpEmail } from "@/features/admin/auth/lib/render-otp-email";
 import { db } from "@/lib/db";
 import { env } from "@/lib/env";

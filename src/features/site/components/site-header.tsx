@@ -34,7 +34,9 @@ export function SiteHeader({ overlay }: { overlay: boolean }) {
           <Link to="/" hash="pricing">
             Pricing
           </Link>
-          <a href={`mailto:${SITE.email}`}>Contact</a>
+          <Link to="/" hash="contact">
+            Contact
+          </Link>
         </nav>
       </div>
     </header>
