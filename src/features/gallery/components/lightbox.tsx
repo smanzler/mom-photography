@@ -9,9 +9,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import type { GalleryLayoutPhoto } from "@/features/gallery/lib/gallery-layout-props";
+import { cn } from "@/lib/utils";
 
 // A horizontal swipe shorter than this, in pixels, is a tap.
 const SWIPE_DISTANCE = 50;
+
+// Overrides the Button press nudge, hover fill and transitions.
+const VIEWER_BUTTON =
+  "text-white transition-none hover:bg-transparent hover:text-white hover:opacity-70 active:not-aria-[haspopup]:translate-y-0 aria-expanded:bg-transparent";
 
 /** Shows `photos[index]` over the whole screen; `index: null` closes it. Steps wrap around at both ends. */
 export function Lightbox({
@@ -73,7 +78,7 @@ export function Lightbox({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="size-11 text-white hover:bg-white/10 hover:text-white"
+                    className={cn("size-11", VIEWER_BUTTON)}
                   />
                 }
               >
@@ -101,7 +106,10 @@ export function Lightbox({
                   variant="ghost"
                   size="icon"
                   aria-label="Previous photo"
-                  className="absolute top-1/2 left-2 hidden size-12 -translate-y-1/2 text-white hover:bg-white/10 hover:text-white sm:flex"
+                  className={cn(
+                    "absolute inset-y-0 left-2 my-auto hidden size-12 sm:flex",
+                    VIEWER_BUTTON,
+                  )}
                   onClick={() => step(-1)}
                 >
                   <ChevronLeft className="size-7" />
@@ -110,7 +118,10 @@ export function Lightbox({
                   variant="ghost"
                   size="icon"
                   aria-label="Next photo"
-                  className="absolute top-1/2 right-2 hidden size-12 -translate-y-1/2 text-white hover:bg-white/10 hover:text-white sm:flex"
+                  className={cn(
+                    "absolute inset-y-0 right-2 my-auto hidden size-12 sm:flex",
+                    VIEWER_BUTTON,
+                  )}
                   onClick={() => step(1)}
                 >
                   <ChevronRight className="size-7" />
