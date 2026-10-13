@@ -23,15 +23,16 @@ const SPAN_STYLES: Record<
   },
 };
 
-export function GridLayout({ photos }: GalleryLayoutProps) {
+export function GridLayout({ photos, onOpen }: GalleryLayoutProps) {
   return (
     <div className="grid grid-flow-dense grid-cols-2 gap-2 md:grid-cols-3">
-      {photos.map((photo) => {
+      {photos.map((photo, i) => {
         const style = SPAN_STYLES[photo.span];
         return (
           <PhotoFigure
             key={photo.id}
             photo={photo}
+            onOpen={() => onOpen(i)}
             sizes={style.sizes}
             className={style.cell}
             imageClassName={`${style.image} object-cover`}

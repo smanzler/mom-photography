@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { PhotoImage } from "@/components/photo-image";
 import type { PhotoImageSource } from "@/components/photo-image";
 import { GALLERY_LAYOUTS } from "@/features/gallery/components/layouts/gallery-layouts";
+import { Lightbox } from "@/features/gallery/components/lightbox";
 import type { GalleryLayoutPhoto } from "@/features/gallery/lib/gallery-layout-props";
 import { SiteLayout } from "@/features/site/components/site-layout";
 import type { Layout } from "@/lib/gallery-layout";
@@ -19,6 +21,7 @@ export function GalleryScreen({
   };
 }) {
   const GalleryLayout = GALLERY_LAYOUTS[gallery.layout];
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const title = (
     <div className="flex flex-col items-center gap-3.5 px-6 text-center">
       <p className="text-xs tracking-[0.24em] uppercase">Gallery</p>
@@ -53,7 +56,7 @@ export function GalleryScreen({
       )}
 
       <div className="mx-auto max-w-7xl px-2 py-20 sm:px-6">
-        <GalleryLayout photos={gallery.photos} />
+        <GalleryLayout photos={gallery.photos} onOpen={setOpenIndex} />
       </div>
 
       <section className="bg-cream flex flex-col items-center gap-5 px-6 py-24 text-center">
@@ -79,6 +82,11 @@ export function GalleryScreen({
           Book a session
         </Link>
       </section>
+      <Lightbox
+        photos={gallery.photos}
+        index={openIndex}
+        onIndexChange={setOpenIndex}
+      />
     </SiteLayout>
   );
 }
