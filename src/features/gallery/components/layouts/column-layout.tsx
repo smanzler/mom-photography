@@ -8,15 +8,16 @@ const SPAN_STYLES: Record<Span, { width: string; sizes: string }> = {
   full: { width: "max-w-none", sizes: "100vw" },
 };
 
-export function ColumnLayout({ photos }: GalleryLayoutProps) {
+export function ColumnLayout({ photos, onOpen }: GalleryLayoutProps) {
   return (
     <div className="flex flex-col items-center gap-12">
-      {photos.map((photo) => {
+      {photos.map((photo, i) => {
         const style = SPAN_STYLES[photo.span];
         return (
           <PhotoFigure
             key={photo.id}
             photo={photo}
+            onOpen={() => onOpen(i)}
             sizes={style.sizes}
             className={`w-full ${style.width}`}
           />

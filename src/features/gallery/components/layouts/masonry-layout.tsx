@@ -2,13 +2,14 @@ import { PhotoFigure } from "@/features/gallery/components/photo-figure";
 import type { GalleryLayoutProps } from "@/features/gallery/lib/gallery-layout-props";
 
 /** Keeps each photo's shape, so photo sizes do not apply. */
-export function MasonryLayout({ photos }: GalleryLayoutProps) {
+export function MasonryLayout({ photos, onOpen }: GalleryLayoutProps) {
   return (
     <div className="columns-1 gap-2 sm:columns-2 lg:columns-3">
-      {photos.map((photo) => (
+      {photos.map((photo, i) => (
         <PhotoFigure
           key={photo.id}
           photo={photo}
+          onOpen={() => onOpen(i)}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="mb-2 break-inside-avoid"
         />

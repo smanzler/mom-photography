@@ -7,4 +7,7 @@ export type GalleryLayoutPhoto = PhotoImageSource & {
   span: Span;
 };
 
-export type GalleryLayoutProps = { photos: GalleryLayoutPhoto[] };
+export type GalleryLayoutProps = {
+  photos: GalleryLayoutPhoto[];
+  onOpen: (index: number) => void;
+};
