@@ -14,12 +14,13 @@ export function GalleryScreen({
   photos,
   library,
 }: {
-  gallery: UpdateGalleryInput;
+  gallery: UpdateGalleryInput & { slug: string };
   coverPhotoId: string | null;
   photos: GalleryPhoto[];
   library: (PhotoImageSource & { id: string })[];
 }) {
   const router = useRouter();
+  const { slug, ...details } = gallery;
 
   const handleDelete = async () => {
     if (
@@ -49,7 +50,7 @@ export function GalleryScreen({
         {gallery.isPublished && (
           <Link
             to="/$gallerySlug"
-            params={{ gallerySlug: gallery.slug }}
+            params={{ gallerySlug: slug }}
             target="_blank"
             className={buttonVariants({
               variant: "outline",
@@ -69,7 +70,7 @@ export function GalleryScreen({
         </Button>
       </div>
       <div className="grid gap-10 lg:grid-cols-[22rem_1fr]">
-        <GalleryDetailsForm key={JSON.stringify(gallery)} gallery={gallery} />
+        <GalleryDetailsForm key={JSON.stringify(gallery)} gallery={details} />
         <GalleryPhotosEditor
           galleryId={gallery.id}
           coverPhotoId={coverPhotoId}

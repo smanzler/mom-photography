@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { toSlug } from "@/features/admin/galleries/lib/build-slug";
 import type { UpdateGalleryInput } from "@/features/admin/galleries/lib/gallery-schema";
 import { LAYOUT_OPTIONS } from "@/features/admin/galleries/lib/layout-options";
 import { updateGallery } from "@/features/admin/galleries/server/update-gallery";
@@ -60,15 +61,9 @@ export function GalleryDetailsForm({
           value={values.title}
           onChange={(event) => setValue("title", event.target.value)}
         />
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="slug">URL</Label>
-        <Input
-          id="slug"
-          required
-          value={values.slug}
-          onChange={(event) => setValue("slug", event.target.value)}
-        />
+        <p className="text-muted-foreground text-sm">
+          URL: /{toSlug(values.title) || "gallery"}
+        </p>
       </div>
       <div className="flex flex-col gap-2">
         <Label htmlFor="description">Description</Label>
