@@ -2,7 +2,7 @@ import { Link, useRouter } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/features/admin/auth/lib/auth-client";
-import { SITE } from "@/lib/site";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 export function AdminLayout({
   email,
@@ -12,6 +12,7 @@ export function AdminLayout({
   children: ReactNode;
 }) {
   const router = useRouter();
+  const site = useSiteSettings();
 
   const handleSignOut = async () => {
     await authClient.signOut();
@@ -23,7 +24,7 @@ export function AdminLayout({
       <header className="border-border border-b">
         <div className="mx-auto flex h-14 max-w-6xl items-center gap-6 px-6">
           <Link to="/admin" className="font-semibold tracking-tight">
-            {SITE.name} admin
+            {site.name} admin
           </Link>
           <nav className="flex items-center gap-4 text-sm">
             <Link

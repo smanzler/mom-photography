@@ -12,7 +12,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { OTHER_SESSION } from "@/features/home/lib/inquiry-schema";
 import { sendInquiry } from "@/features/home/server/send-inquiry";
-import { SITE } from "@/lib/site";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 import { cn } from "@/lib/utils";
 
 type Status = "idle" | "sending" | "sent" | "failed";
@@ -24,6 +24,7 @@ export function ContactSection({ sessions }: { sessions: string[] }) {
   }));
   const [session, setSession] = useState(sessionItems[0].value);
   const [status, setStatus] = useState<Status>("idle");
+  const { email } = useSiteSettings();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -61,9 +62,11 @@ export function ContactSection({ sessions }: { sessions: string[] }) {
           <p className="text-muted-foreground max-w-md leading-relaxed">
             Tell me a little about what you have in mind.
           </p>
-          <a href={`mailto:${SITE.email}`} className="mt-3 self-start">
-            {SITE.email}
-          </a>
+          {email && (
+            <a href={`mailto:${email}`} className="mt-3 self-start">
+              {email}
+            </a>
+          )}
         </div>
 
         {/* Both sit in one grid cell, so the section keeps the height of the form after a send. */}

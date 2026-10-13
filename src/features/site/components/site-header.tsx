@@ -1,8 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { SITE } from "@/lib/site";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader({ overlay }: { overlay: boolean }) {
+  const site = useSiteSettings();
+
   return (
     <header
       className={cn(
@@ -22,7 +24,7 @@ export function SiteHeader({ overlay }: { overlay: boolean }) {
           to="/"
           className="font-heading text-lg font-semibold tracking-tight"
         >
-          {SITE.name}
+          {site.name}
         </Link>
         <nav
           aria-label="Main"

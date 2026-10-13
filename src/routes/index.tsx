@@ -4,8 +4,7 @@ import { listPublishedGalleries } from "@/features/gallery/server/list-published
 import { getAboutSection } from "@/lib/get-about-section";
 import { listHomepagePhotos } from "@/lib/list-homepage-photos";
 import { listPricingPackages } from "@/lib/list-pricing-packages";
-import { buildPageHead } from "@/lib/seo";
-import { SITE } from "@/lib/site";
+import { buildPageHead, buildSiteTitle } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -17,10 +16,10 @@ export const Route = createFileRoute("/")({
     ]);
     return { galleries, heroPhotos, pricingPackages, about };
   },
-  head: () =>
+  head: ({ match }) =>
     buildPageHead({
-      title: `${SITE.name} — ${SITE.tagline}`,
-      description: SITE.description,
+      title: buildSiteTitle(match.context.site),
+      description: match.context.site.description,
       path: "/",
     }),
   component: HomeRoute,
