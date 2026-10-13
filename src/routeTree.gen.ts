@@ -14,6 +14,7 @@ import { Route as GallerySlugRouteImport } from './routes/$gallerySlug'
 import { Route as AdminAuthedRouteRouteImport } from './routes/admin/_authed/route'
 import { Route as AdminSignInRouteImport } from './routes/admin/sign-in'
 import { Route as AdminAuthedIndexRouteImport } from './routes/admin/_authed/index'
+import { Route as AdminAuthedAboutRouteImport } from './routes/admin/_authed/about'
 import { Route as AdminAuthedHomepageRouteImport } from './routes/admin/_authed/homepage'
 import { Route as AdminAuthedPhotosRouteImport } from './routes/admin/_authed/photos'
 import { Route as AdminAuthedPricingRouteImport } from './routes/admin/_authed/pricing'
@@ -44,6 +45,11 @@ const AdminSignInRoute = AdminSignInRouteImport.update({
 const AdminAuthedIndexRoute = AdminAuthedIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AdminAuthedRouteRoute,
+} as any)
+const AdminAuthedAboutRoute = AdminAuthedAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => AdminAuthedRouteRoute,
 } as any)
 const AdminAuthedHomepageRoute = AdminAuthedHomepageRouteImport.update({
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/$gallerySlug': typeof GallerySlugRoute
   '/admin': typeof AdminAuthedRouteRouteWithChildren
   '/admin/sign-in': typeof AdminSignInRoute
+  '/admin/about': typeof AdminAuthedAboutRoute
   '/admin/homepage': typeof AdminAuthedHomepageRoute
   '/admin/photos': typeof AdminAuthedPhotosRoute
   '/admin/pricing': typeof AdminAuthedPricingRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$gallerySlug': typeof GallerySlugRoute
   '/admin/sign-in': typeof AdminSignInRoute
+  '/admin/about': typeof AdminAuthedAboutRoute
   '/admin/homepage': typeof AdminAuthedHomepageRoute
   '/admin/photos': typeof AdminAuthedPhotosRoute
   '/admin/pricing': typeof AdminAuthedPricingRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/$gallerySlug': typeof GallerySlugRoute
   '/admin/_authed': typeof AdminAuthedRouteRouteWithChildren
   '/admin/sign-in': typeof AdminSignInRoute
+  '/admin/_authed/about': typeof AdminAuthedAboutRoute
   '/admin/_authed/homepage': typeof AdminAuthedHomepageRoute
   '/admin/_authed/photos': typeof AdminAuthedPhotosRoute
   '/admin/_authed/pricing': typeof AdminAuthedPricingRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/$gallerySlug'
     | '/admin'
     | '/admin/sign-in'
+    | '/admin/about'
     | '/admin/homepage'
     | '/admin/photos'
     | '/admin/pricing'
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$gallerySlug'
     | '/admin/sign-in'
+    | '/admin/about'
     | '/admin/homepage'
     | '/admin/photos'
     | '/admin/pricing'
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/$gallerySlug'
     | '/admin/_authed'
     | '/admin/sign-in'
+    | '/admin/_authed/about'
     | '/admin/_authed/homepage'
     | '/admin/_authed/photos'
     | '/admin/_authed/pricing'
@@ -204,6 +216,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAuthedIndexRouteImport
       parentRoute: typeof AdminAuthedRouteRoute
     }
+    '/admin/_authed/about': {
+      id: '/admin/_authed/about'
+      path: '/about'
+      fullPath: '/admin/about'
+      preLoaderRoute: typeof AdminAuthedAboutRouteImport
+      parentRoute: typeof AdminAuthedRouteRoute
+    }
     '/admin/_authed/homepage': {
       id: '/admin/_authed/homepage'
       path: '/homepage'
@@ -250,6 +269,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminAuthedRouteRouteChildren {
+  AdminAuthedAboutRoute: typeof AdminAuthedAboutRoute
   AdminAuthedHomepageRoute: typeof AdminAuthedHomepageRoute
   AdminAuthedPhotosRoute: typeof AdminAuthedPhotosRoute
   AdminAuthedPricingRoute: typeof AdminAuthedPricingRoute
@@ -259,6 +279,7 @@ interface AdminAuthedRouteRouteChildren {
 }
 
 const AdminAuthedRouteRouteChildren: AdminAuthedRouteRouteChildren = {
+  AdminAuthedAboutRoute: AdminAuthedAboutRoute,
   AdminAuthedHomepageRoute: AdminAuthedHomepageRoute,
   AdminAuthedPhotosRoute: AdminAuthedPhotosRoute,
   AdminAuthedPricingRoute: AdminAuthedPricingRoute,
