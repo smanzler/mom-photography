@@ -1,12 +1,15 @@
+import type { ComponentProps } from "react";
 import type { PhotoImageSource } from "@/components/photo-image";
 import { GalleryCard } from "@/features/gallery/components/gallery-card";
 import { HeroSlideshow } from "@/features/home/components/hero-slideshow";
+import { PricingSection } from "@/features/home/components/pricing-section";
 import { SiteLayout } from "@/features/site/components/site-layout";
 import { SITE } from "@/lib/site";
 
 export function HomeScreen({
   galleries,
   heroPhotos,
+  pricingPackages,
 }: {
   galleries: {
     id: string;
@@ -15,6 +18,7 @@ export function HomeScreen({
     coverPhoto: PhotoImageSource | null;
   }[];
   heroPhotos: (PhotoImageSource & { id: string })[];
+  pricingPackages: ComponentProps<typeof PricingSection>["packages"];
 }) {
   const hasHero = heroPhotos.length > 0;
 
@@ -39,6 +43,9 @@ export function HomeScreen({
           </div>
         )}
       </div>
+      {pricingPackages.length > 0 && (
+        <PricingSection packages={pricingPackages} />
+      )}
     </SiteLayout>
   );
 }
