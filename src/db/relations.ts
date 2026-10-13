@@ -18,6 +18,13 @@ export const relations = defineRelations(schema, (r) => ({
       to: r.GalleryPhotos.galleryId,
     }),
   },
+  HomepagePhotos: {
+    photo: r.one.Photos({
+      from: r.HomepagePhotos.photoId,
+      to: r.Photos.id,
+      optional: false,
+    }),
+  },
   GalleryPhotos: {
     gallery: r.one.Galleries({
       from: r.GalleryPhotos.galleryId,

@@ -67,3 +67,10 @@ export const GalleryPhotos = pgTable(
     index("gallery_photos_photo_id_idx").on(t.photoId),
   ],
 );
+
+export const HomepagePhotos = pgTable("homepage_photos", {
+  photoId: uuid("photo_id")
+    .primaryKey()
+    .references(() => Photos.id, { onDelete: "cascade" }),
+  position: position("position").notNull(),
+});
