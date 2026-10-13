@@ -117,7 +117,7 @@ export function ContactSection({ sessions }: { sessions: string[] }) {
                 >
                   <SelectTrigger
                     id="contact-session"
-                    className="bg-background h-11 w-full"
+                    className="bg-background w-full data-[size=default]:h-11"
                   >
                     <SelectValue />
                   </SelectTrigger>
@@ -142,7 +142,12 @@ export function ContactSection({ sessions }: { sessions: string[] }) {
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="contact-message">Message</Label>
-              <Textarea id="contact-message" name="message" required rows={4} />
+              <Textarea
+                id="contact-message"
+                name="message"
+                required
+                className="bg-background min-h-32"
+              />
             </div>
             <input
               name="website"
