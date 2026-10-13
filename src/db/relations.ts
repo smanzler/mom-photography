@@ -18,6 +18,12 @@ export const relations = defineRelations(schema, (r) => ({
       to: r.GalleryPhotos.galleryId,
     }),
   },
+  AboutSection: {
+    photo: r.one.Photos({
+      from: r.AboutSection.photoId,
+      to: r.Photos.id,
+    }),
+  },
   HomepagePhotos: {
     photo: r.one.Photos({
       from: r.HomepagePhotos.photoId,
