@@ -9,6 +9,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { FileDropOverlay } from "@/features/admin/components/file-drop-overlay";
+import { UploadButton } from "@/features/admin/components/upload-button";
+import { UploadFailureList } from "@/features/admin/components/upload-failure-list";
+import { useFileDrop } from "@/features/admin/hooks/use-file-drop";
+import { useUploadPhotos } from "@/features/admin/hooks/use-upload-photos";
 import { cn } from "@/lib/utils";
 
 type PickablePhoto = PhotoImageSource & { id: string };
@@ -39,7 +44,11 @@ const PICK_MODES: Record<
   },
 };
 
-/** Calls `onPick` with the photo ids in the order the user selected them. */
+/**
+ * Calls `onPick` with the photo ids in the order the user selected them.
+ * Photos uploaded from the dialog go into the library and become selected,
+ * so `photos` must come from a loader that `router.invalidate()` runs again.
+ */
 export function PhotoPickerDialog({
   photos,
   mode = "many",
@@ -54,6 +63,17 @@ export function PhotoPickerDialog({
   const pickMode = PICK_MODES[mode];
   const [selected, setSelected] = useState<string[]>([]);
   const [isPending, setIsPending] = useState(false);
+  const { uploadPhotos, progress, failures } = useUploadPhotos();
+
+  const handleFiles = async (files: File[]) => {
+    const uploadedIds = await uploadPhotos(files);
+    setSelected((current) => uploadedIds.reduce(pickMode.add, current));
+  };
+
+  const { isDragging } = useFileDrop({
+    enabled: !progress && !isPending,
+    onFiles: handleFiles,
+  });
 
   const handleToggle = (id: string) =>
     setSelected((current) =>
@@ -76,10 +96,11 @@ export function PhotoPickerDialog({
         </DialogHeader>
         {photos.length === 0 ? (
           <p className="text-muted-foreground text-sm">
-            Every photo in the library is already added.
+            Every photo in the library is already added. Upload new ones, or
+            drop them here.
           </p>
         ) : (
-          <ul className="grid max-h-[60vh] grid-cols-3 gap-2 overflow-y-auto sm:grid-cols-5">
+          <ul className="-m-1 grid max-h-[60vh] grid-cols-3 gap-2 overflow-y-auto p-1 sm:grid-cols-5">
             {photos.map((photo) => {
               const order = selected.indexOf(photo.id);
               return (
@@ -109,11 +130,23 @@ export function PhotoPickerDialog({
             })}
           </ul>
         )}
+        <UploadFailureList failures={failures} />
         <DialogFooter>
-          <Button disabled={!selected.length || isPending} onClick={handleAdd}>
+          <div className="sm:mr-auto">
+            <UploadButton
+              variant="outline"
+              progress={progress}
+              onFiles={handleFiles}
+            />
+          </div>
+          <Button
+            disabled={!selected.length || isPending || !!progress}
+            onClick={handleAdd}
+          >
             {pickMode.buttonLabel(selected.length)}
           </Button>
         </DialogFooter>
+        {isDragging && <FileDropOverlay isUploading={!!progress} />}
       </DialogContent>
     </Dialog>
   );

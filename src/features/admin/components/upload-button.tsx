@@ -1,15 +1,18 @@
 import { Upload } from "lucide-react";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
+import type { UploadProgress } from "@/features/admin/hooks/use-upload-photos";
 import { imageContentTypeSchema } from "@/features/admin/uploads/lib/upload-schema";
 
 const ACCEPT = imageContentTypeSchema.options.join(",");
 
 export function UploadButton({
-  isUploading,
+  progress,
+  variant,
   onFiles,
 }: {
-  isUploading: boolean;
+  progress: UploadProgress | undefined;
+  variant?: React.ComponentProps<typeof Button>["variant"];
   onFiles: (files: File[]) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -30,9 +33,15 @@ export function UploadButton({
         hidden
         onChange={handleChange}
       />
-      <Button disabled={isUploading} onClick={() => inputRef.current?.click()}>
+      <Button
+        variant={variant}
+        disabled={!!progress}
+        onClick={() => inputRef.current?.click()}
+      >
         <Upload />
-        Upload photos
+        {progress
+          ? `Uploading ${progress.done + 1} of ${progress.total}…`
+          : "Upload photos"}
       </Button>
     </>
   );

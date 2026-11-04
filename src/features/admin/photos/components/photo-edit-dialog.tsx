@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { deletePhoto } from "@/features/admin/photos/server/delete-photo";
+import { deletePhotos } from "@/features/admin/photos/server/delete-photos";
 import { updatePhoto } from "@/features/admin/photos/server/update-photo";
 
 export type EditablePhoto = PhotoImageSource & {
@@ -48,7 +48,7 @@ export function PhotoEditDialog({
       return;
 
     setIsPending(true);
-    await deletePhoto({ data: { id: photo.id } });
+    await deletePhotos({ data: { ids: [photo.id] } });
     await router.invalidate();
     onClose();
   };
