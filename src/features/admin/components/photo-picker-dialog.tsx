@@ -100,7 +100,7 @@ export function PhotoPickerDialog({
             drop them here.
           </p>
         ) : (
-          <ul className="grid max-h-[60vh] grid-cols-3 gap-2 overflow-y-auto sm:grid-cols-5">
+          <ul className="-m-1 grid max-h-[60vh] grid-cols-3 gap-2 overflow-y-auto p-1 sm:grid-cols-5">
             {photos.map((photo) => {
               const order = selected.indexOf(photo.id);
               return (
