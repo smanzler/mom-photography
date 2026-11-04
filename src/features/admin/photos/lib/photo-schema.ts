@@ -17,4 +17,7 @@ export const updatePhotoInputSchema = z.object({
 });
 export type UpdatePhotoInput = z.infer<typeof updatePhotoInputSchema>;
 
-export const photoIdInputSchema = z.object({ id: z.uuid() });
+export const deletePhotosInputSchema = z.object({
+  ids: z.array(z.uuid()).min(1),
+});
+export type DeletePhotosInput = z.infer<typeof deletePhotosInputSchema>;
