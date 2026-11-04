@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { SiteFooter } from "@/features/site/components/site-footer";
 import { SiteHeader } from "@/features/site/components/site-header";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 /** Set `overlayHeader` when the page starts with a full-screen photo: the header then sits on top of it. */
 export function SiteLayout({

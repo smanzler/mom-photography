@@ -1,6 +1,6 @@
 import { PhotoImage } from "@/components/photo-image";
 import type { GalleryLayoutPhoto } from "@/features/gallery/lib/gallery-layout-props";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 export function PhotoFigure({
   photo,

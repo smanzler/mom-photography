@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useSiteSettings } from "@/hooks/use-site-settings";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 const NAV_LINKS = [
   { hash: "galleries", label: "Galleries" },

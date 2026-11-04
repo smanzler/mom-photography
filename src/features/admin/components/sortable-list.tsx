@@ -18,7 +18,7 @@ import { GripVertical } from "lucide-react";
 import { useId, useState } from "react";
 import type { ReactNode } from "react";
 import { findMovedOrder } from "@/features/admin/lib/find-moved-order";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 /**
  * Shows `items` in the new order at once, then calls `onMove`.

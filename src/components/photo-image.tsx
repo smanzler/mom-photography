@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import { buildImageSrcSet, buildImageUrl } from "@/lib/image-url";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 export type PhotoImageSource = {
   key: string;

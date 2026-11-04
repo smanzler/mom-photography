@@ -14,7 +14,7 @@ import { UploadButton } from "@/features/admin/components/upload-button";
 import { UploadFailureList } from "@/features/admin/components/upload-failure-list";
 import { useFileDrop } from "@/features/admin/hooks/use-file-drop";
 import { useUploadPhotos } from "@/features/admin/hooks/use-upload-photos";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 type PickablePhoto = PhotoImageSource & { id: string };
 
