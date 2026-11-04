@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import type { GalleryLayoutPhoto } from "@/features/gallery/lib/gallery-layout-props";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 // A horizontal swipe shorter than this, in pixels, is a tap.
 const SWIPE_DISTANCE = 50;

@@ -11,7 +11,7 @@ import { useUploadPhotos } from "@/features/admin/hooks/use-upload-photos";
 import { PhotoEditDialog } from "@/features/admin/photos/components/photo-edit-dialog";
 import type { EditablePhoto } from "@/features/admin/photos/components/photo-edit-dialog";
 import { deletePhotos } from "@/features/admin/photos/server/delete-photos";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 export function PhotosScreen({ photos }: { photos: EditablePhoto[] }) {
   const router = useRouter();

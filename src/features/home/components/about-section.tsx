@@ -1,6 +1,6 @@
 import { PhotoImage } from "@/components/photo-image";
 import type { PhotoImageSource } from "@/components/photo-image";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 export function AboutSection({
   about,

@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { OTHER_SESSION } from "@/features/home/lib/inquiry-schema";
 import { sendInquiry } from "@/features/home/server/send-inquiry";
 import { useSiteSettings } from "@/hooks/use-site-settings";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 type Status = "idle" | "sending" | "sent" | "failed";
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PhotoImage } from "@/components/photo-image";
 import type { PhotoImageSource } from "@/components/photo-image";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 
 /** Fills the screen. Moves to the next photo when the bar of the current photo is full. */
 export function HeroSlideshow({
